@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQAC | Thiruvalluvar College</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === VIBRANT LIGHT THEME VARIABLES === */
+        :root { 
+            --bg-main: #ffffff; 
+            --bg-alt: #f8fafc;
+            --text-dark: #0f172a; 
+            --text-muted: #475569; 
+            
+            /* Multi-Color Palette */
+            --color-blue: #2563eb; 
+            --color-cyan: #06b6d4; 
+            --color-purple: #8b5cf6;
+            --color-pink: #ec4899;
+            --color-orange: #f97316;
+            --color-green: #10b981;
+            --color-rose: #f43f5e;
+
+            --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.08);
+            --shadow-glow: 0 10px 30px rgba(37, 99, 235, 0.2);
+            --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; cursor: none; }
+        html { scroll-behavior: smooth; } 
+        body { 
+            background: linear-gradient(-45deg, #ffffff, #f0fdfa, #eff6ff, #fdf2f8);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark); overflow-x: hidden; line-height: 1.6; 
+        } 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        a, button { cursor: none; text-decoration: none;} 
+        ul { list-style: none; }
+
+        /* === PRELOADER === */
+        #preloader { position: fixed; inset: 0; background: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
+        .loader-ring { width: 60px; height: 60px; border: 4px solid #e2e8f0; border-top-color: var(--color-blue); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* === CUSTOM MOUSE CURSOR === */
+        .cursor-dot { width: 8px; height: 8px; background: var(--color-blue); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999999 !important; transition: width 0.2s, height 0.2s; }
+        .cursor-outline { width: 40px; height: 40px; border: 2px solid rgba(37, 99, 235, 0.5); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999998 !important; transition: width 0.2s, height 0.2s, border-color 0.2s; transition-duration: 150ms; transition-timing-function: ease-out; }
+        body.hovering .cursor-dot { width: 0; height: 0; }
+        body.hovering .cursor-outline { width: 60px; height: 60px; background: rgba(37, 99, 235, 0.1); border-color: var(--color-blue); backdrop-filter: blur(2px); }
+
+        /* === DYNAMIC MESH BACKGROUND === */
+        .mesh-bg { position: fixed; inset: 0; z-index: -3; overflow: hidden; pointer-events: none; }
+        .mesh-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; animation: floatMesh 20s infinite alternate ease-in-out; }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--color-cyan); }
+        .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: var(--color-blue); animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: var(--color-purple); animation-delay: -10s; }
+        @keyframes floatMesh { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(10vw, 15vh) scale(1.2); } 100% { transform: translate(-10vw, 5vh) scale(0.8); } }
+
+        /* === MULTI-COLOR TYPOGRAPHY === */
+        .text-gradient-blue { background: linear-gradient(to right, var(--color-blue), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-pink { background: linear-gradient(to right, var(--color-pink), var(--color-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-orange { background: linear-gradient(to right, var(--color-orange), #fcd34d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-green { background: linear-gradient(to right, var(--color-green), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-purple { background: linear-gradient(to right, var(--color-purple), var(--color-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .btn { padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 700; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; box-shadow: var(--shadow-soft); text-decoration: none; }
+        .btn-gradient { background: linear-gradient(135deg, var(--color-blue), var(--color-purple)); color: white; }
+        .btn-gradient:hover { transform: translateY(-5px); box-shadow: var(--shadow-glow); background: linear-gradient(135deg, var(--color-purple), var(--color-pink)); }
+        .magnetic-wrap { display: inline-block; }
+
+        /* === COLORFUL ENTERPRISE NAVBAR === */
+        .navbar { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 85px; 
+            background: rgba(255, 255, 255, 0.90); 
+            backdrop-filter: blur(20px); 
+            border-bottom: 3px solid transparent; 
+            border-image: linear-gradient(to right, var(--color-blue), var(--color-pink), var(--color-orange), var(--color-green)) 1;
+            z-index: 1000; display: flex; align-items: center; transition: all 0.4s; 
+        }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 75px; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+        .logo-img { height: 45px; display: block; object-fit: contain; }
+        .nav-links { display: flex; gap: 30px; align-items: center; position: absolute; left: 50%; transform: translateX(-50%); height: 100%;}
+        .nav-links > li { height: 100%; display: flex; align-items: center; position: relative; }
+        .nav-links a { font-size: 15px; font-weight: 700; color: var(--text-muted); transition: 0.3s; position: relative; padding-bottom: 5px; text-decoration: none; }
+        .nav-links > li > a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 50%; transition: 0.3s var(--smooth); transform: translateX(-50%); border-radius: 5px; }
+        
+        .nav-links > li:nth-child(1) > a:hover { color: var(--color-blue); } .nav-links > li:nth-child(1) > a::after { background: var(--color-blue); }
+        .nav-links > li:nth-child(2) > a:hover { color: var(--color-pink); } .nav-links > li:nth-child(2) > a::after { background: var(--color-pink); }
+        .nav-links > li:nth-child(3) > a:hover { color: var(--color-orange); } .nav-links > li:nth-child(3) > a::after { background: var(--color-orange); }
+        .nav-links > li:nth-child(4) > a:hover { color: var(--color-green); } .nav-links > li:nth-child(4) > a::after { background: var(--color-green); }
+        .nav-links > li:nth-child(5) > a:hover { color: var(--color-cyan); } .nav-links > li:nth-child(5) > a::after { background: var(--color-cyan); }
+        .nav-links > li:nth-child(6) > a:hover { color: var(--color-blue); } .nav-links > li:nth-child(6) > a::after { background: var(--color-blue); }
+        .nav-links > li:nth-child(7) > a:hover, .nav-links > li:nth-child(7) > a.active { color: var(--color-purple); } .nav-links > li:nth-child(7) > a.active::after, .nav-links > li:nth-child(7) > a:hover::after { background: var(--color-purple); width: 100%;}
+        .nav-links > li > a:hover::after { width: 100%; }
+
+        .dropdown-content {
+            position: absolute; top: 85px; left: 0;
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px);
+            min-width: 240px; box-shadow: var(--shadow-soft);
+            border-radius: 0 0 16px 16px; overflow: hidden;
+            opacity: 0; visibility: hidden; transform: translateY(15px);
+            transition: all 0.3s var(--spring); padding: 10px 0;
+            border: 1px solid rgba(0, 0, 0, 0.05); border-top: none;
+        }
+        .nav-links li:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
+        .navbar.scrolled .dropdown-content { top: 75px; }
+        .dropdown-content li a { display: block; padding: 12px 24px; color: var(--text-muted); font-size: 14px; font-weight: 600; transition: 0.3s; position: relative; }
+        .dropdown-content li a::after { display: none; } 
+        
+        .nav-links > li:nth-child(2) .dropdown-content li a:hover { background: #fdf2f8; color: var(--color-pink); padding-left: 30px; border-left: 3px solid var(--color-pink); }
+        .nav-links > li:nth-child(3) .dropdown-content li a:hover { background: #fff7ed; color: var(--color-orange); padding-left: 30px; border-left: 3px solid var(--color-orange); }
+        .nav-links > li:nth-child(4) .dropdown-content li a:hover { background: #f0fdfa; color: var(--color-green); padding-left: 30px; border-left: 3px solid var(--color-green); }
+        .nav-links > li:nth-child(5) .dropdown-content li a:hover { background: #ecfeff; color: var(--color-cyan); padding-left: 30px; border-left: 3px solid var(--color-cyan); }
+
+        /* === MARQUEE === */
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-wrapper { position: absolute; top: 85px; width: 100%; background: #0f172a; padding: 12px 0; display: flex; overflow: hidden; color: white; z-index: 999; }
+        .marquee-content { display: flex; width: max-content; animation: scrollMarquee 15s linear infinite; align-items: center; }
+        .marquee-wrapper:hover .marquee-content { animation-play-state: paused; }
+        .marquee-item { flex-shrink: 0; display: flex; align-items: center; gap: 12px; padding: 0 40px; font-size: 14.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-right: 1px solid rgba(255,255,255,0.2); color: #ffffff; text-decoration: none; transition: color 0.3s ease;}
+        .ticker-badge { color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+        .marquee-item.c-blue .ticker-badge { background: var(--color-blue); } .marquee-item.c-pink .ticker-badge { background: var(--color-pink); } .marquee-item.c-orange .ticker-badge { background: var(--color-orange); } .marquee-item.c-green .ticker-badge { background: var(--color-green); }
+
+        /* === HERO SECTION === */
+        .page-hero { padding: 180px 24px 60px; text-align: center; position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+        .hero-tag { display: inline-block; padding: 8px 24px; border-radius: 30px; background: rgba(37, 99, 235, 0.1); color: var(--color-blue); font-weight: 800; font-size: 14px; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 2px;}
+        .page-hero h1 { font-size: 64px; font-weight: 800; line-height: 1.2; margin-bottom: 20px; letter-spacing: -2px; color: var(--text-dark);}
+        
+        /* === CONTENT SECTION === */
+        .content-section { max-width: 1300px; margin: 0 auto 100px; padding: 0 24px; position: relative; z-index: 2;}
+        .section-title { font-size: 40px; font-weight: 800; margin-bottom: 40px; text-align: center; color: var(--text-dark); letter-spacing: -1px;}
+
+        /* 1. Intro & Focus Areas Grid */
+        .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px;}
+        .intro-box { 
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(20px);
+            padding: 40px 45px; border-radius: 35px; box-shadow: var(--shadow-soft); 
+            border: 1px solid rgba(255, 255, 255, 0.9); grid-column: span 2;
+        }
+        .intro-box p { font-size: 18px; color: var(--text-muted); font-weight: 500; line-height: 1.8; margin: 0; text-align: center;}
+        
+        .focus-card {
+            background: white; padding: 30px; border-radius: 25px; display: flex; align-items: flex-start; gap: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); transition: 0.4s;
+        }
+        .focus-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-glow);}
+        .focus-icon { width: 55px; height: 55px; background: linear-gradient(135deg, var(--fc-color), var(--fc-color-2)); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;}
+        .focus-card p { margin: 0; font-size: 17px; font-weight: 600; color: var(--text-dark); align-self: center;}
+        
+        .fc-1 { --fc-color: var(--color-blue); --fc-color-2: var(--color-cyan); }
+        .fc-2 { --fc-color: var(--color-pink); --fc-color-2: var(--color-rose); }
+        .fc-3 { --fc-color: var(--color-orange); --fc-color-2: #fcd34d; }
+        .fc-4 { --fc-color: var(--color-green); --fc-color-2: var(--color-cyan); }
+
+        /* 2. Objectives & Functions */
+        .obj-func-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-bottom: 80px;}
+        .list-box { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 30px; padding: 40px; box-shadow: var(--shadow-soft); border-top: 6px solid var(--box-color);}
+        .list-box h3 { font-size: 28px; font-weight: 800; margin-bottom: 25px; color: var(--box-color);}
+        
+        .custom-list { list-style: none; padding: 0; margin: 0; }
+        .custom-list li { position: relative; padding-left: 35px; font-size: 16px; font-weight: 500; color: var(--text-dark); margin-bottom: 15px; line-height: 1.6;}
+        .custom-list li::before { content: '✔️'; position: absolute; left: 0; top: 0; font-size: 18px; color: var(--box-color);}
+        
+        /* 3. Committee Members Table */
+        .table-wrapper { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border-radius: 30px; overflow: hidden; box-shadow: var(--shadow-soft); border: 1px solid rgba(255, 255, 255, 0.9); }
+        .table-header-title { background: linear-gradient(135deg, var(--color-purple), var(--color-blue)); padding: 30px; text-align: center; color: white; }
+        .table-header-title h2 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: 1px; }
+        .table-header-title p { margin: 5px 0 0 0; font-size: 16px; font-weight: 500; opacity: 0.9;}
+        
+        .styled-table { width: 100%; border-collapse: collapse; }
+        .styled-table thead tr { background: #f8fafc; color: var(--text-muted); text-align: left; border-bottom: 2px solid rgba(0,0,0,0.05);}
+        .styled-table th { padding: 20px 30px; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .styled-table td { padding: 18px 30px; font-size: 16px; font-weight: 600; color: var(--text-dark); border-bottom: 1px solid rgba(0,0,0,0.03); transition: 0.3s; vertical-align: middle;}
+        
+        .styled-table tbody tr { transition: all 0.3s ease; background: white;}
+        .styled-table tbody tr:hover { transform: scale(1.01); box-shadow: 0 10px 20px rgba(0,0,0,0.05); z-index: 10; position: relative;}
+        
+        .cat-badge { background: var(--bg-alt); color: var(--text-muted); font-size: 12px; padding: 4px 10px; border-radius: 15px; font-weight: 700; text-transform: uppercase;}
+        
+        .highlight-row-1 { background: linear-gradient(to right, #eff6ff, #ffffff) !important; border-left: 4px solid var(--color-blue);}
+        .highlight-row-1 .cat-badge { background: var(--color-blue); color: white;}
+        
+        .highlight-row-2 { background: linear-gradient(to right, #fdf2f8, #ffffff) !important; border-left: 4px solid var(--color-pink);}
+        .highlight-row-2 .cat-badge { background: var(--color-pink); color: white;}
+
+        @media (max-width: 992px) {
+            .intro-grid, .obj-func-wrapper { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .styled-table thead { display: none; }
+            .styled-table, .styled-table tbody, .styled-table tr, .styled-table td { display: block; width: 100%; }
+            .styled-table tr { margin-bottom: 15px; border: 1px solid #eee; border-radius: 15px; overflow: hidden; }
+            .styled-table td { text-align: right; padding-left: 50%; position: relative; border-bottom: 1px solid #f1f1f1; min-height: 50px; display: flex; align-items: center; justify-content: flex-end;}
+            .styled-table td::before { content: attr(data-label); position: absolute; left: 20px; width: 45%; text-align: left; font-weight: 800; color: var(--color-cyan); text-transform: uppercase; font-size: 13px;}
+        }
+
+        /* === FOOTER === */
+        .footer { background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); padding: 100px 0 40px; position: relative; overflow: hidden; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 60px;}
+        .footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--color-blue), var(--color-pink), var(--color-orange), var(--color-green), var(--color-cyan)); }
+        .footer-container { max-width: 1320px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10; }
+        .footer-grid { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 60px; }
+        .footer-mission-box { background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255,255,255,0.8); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 25px; border-left: 4px solid var(--color-pink); }
+        .footer-mission-box p { color: var(--text-muted); font-size: 15px; line-height: 1.7; font-weight: 500; margin: 0; }
+        .social-links { display: flex; gap: 15px; }
+        .social-links a { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: all 0.4s var(--spring); font-weight: 700; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: #1877f2;}
+        .social-links a:hover { transform: translateY(-8px) scale(1.1); box-shadow: 0 15px 25px rgba(0,0,0,0.15); }
+        .footer h4 { font-size: 20px; font-weight: 800; margin-bottom: 25px; letter-spacing: 0.5px; position: relative; display: inline-block;}
+        .footer h4::after { content: ''; position: absolute; left: 0; bottom: -8px; height: 3px; width: 20px; border-radius: 3px; background: var(--color-blue);}
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 15px; } 
+        .footer-links a { color: var(--text-muted); transition: 0.3s; font-weight: 600; display: inline-block; text-decoration: none; position: relative;}
+        .footer-links a:hover { color: var(--color-cyan); transform: translateX(8px); }
+        .footer-contact-box { background: linear-gradient(135deg, var(--color-cyan), var(--color-blue)); padding: 30px; border-radius: 24px; color: white; box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2); position: relative; overflow: hidden; }
+        .footer-contact-box::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%); opacity: 0.5; }
+        .footer-contact-box p { color: rgba(255,255,255,0.9); font-weight: 600; margin-bottom: 5px; font-size: 14px; position: relative; z-index: 2;}
+        .footer-contact-box a { font-size: 26px; font-weight: 800; color: white; text-decoration: none; position: relative; z-index: 2; display: inline-block;}
+        .footer-bottom { border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 15px; color: var(--text-muted); font-weight: 600; }
+        @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-grid > div:nth-child(1) { grid-column: span 2; } }
+        @media (max-width: 576px) { .footer-grid { grid-template-columns: 1fr; } .footer-grid > div:nth-child(1) { grid-column: span 1; } .footer-bottom { flex-direction: column; gap: 10px; text-align: center; } }
+    
+        /* === FINAL MOBILE NAVBAR FIX (BUTTER SMOOTH) === */
+        .menu-toggle { display: none; color: var(--text-dark); cursor: pointer; z-index: 1001; }
+        
+        @media (max-width: 992px) {
+            .menu-toggle { display: block; margin-right: 15px; }
+            
+            /* 1. Optimize Main Navbar (No Blur, Solid White to stop lag) */
+            .navbar {
+                background: #ffffff !important; 
+                backdrop-filter: none !important; 
+                -webkit-backdrop-filter: none !important;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+                padding: 10px 0 !important;
+                will-change: transform, opacity; 
+            }
+            
+            /* 2. Smooth Sliding Menu */
+            .nav-links {
+                position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+                background: #ffffff !important; 
+                backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+                flex-direction: column; align-items: flex-start; justify-content: flex-start;
+                padding: 100px 30px 40px; 
+                transform: translateX(100%); 
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); 
+                left: auto; box-shadow: -5px 0 30px rgba(0,0,0,0.1); 
+                overflow-y: auto; z-index: 1000;
+            }
+            
+            .nav-links.active { transform: translateX(0); }
+            
+            .nav-links > li { height: auto; width: 100%; margin-bottom: 15px; display: block; }
+            .nav-links a { font-size: 16px; padding-bottom: 2px; display: block; }
+            
+            /* 3. Fixed Sub-headings (Always open neatly, NO JUMPING) */
+            .navbar.scrolled .dropdown-content {
+                top: 0 !important;
+            }
+            .dropdown-content {
+                position: relative !important; 
+                top: 0 !important; 
+                left: 0; box-shadow: none; border: none; 
+                padding-left: 15px; padding-top: 5px; opacity: 1; visibility: visible; 
+                display: block !important; 
+                transform: none; background: transparent;
+                border-left: 2px solid #e2e8f0; margin-top: 8px; border-radius: 0;
+            }
+            
+            .dropdown-content li { margin-bottom: 0; }
+            .dropdown-content li a { 
+                padding: 8px 15px; font-size: 14px; font-weight: 500; 
+                color: var(--text-muted); 
+            }
+            
+            .nav-right-items { display: flex; align-items: center; gap: 10px; z-index: 1001; position: relative;}
+        }
+        
+        @media (max-width: 576px) {
+            .magnetic-wrap .btn { padding: 10px 15px; font-size: 14px; }
+            .logo-img { height: 35px; }
+        }
+
+        /* === DISABLE CUSTOM CURSOR ON MOBILE & TOUCH DEVICES === */
+        @media (hover: none) and (pointer: coarse), (max-width: 992px) {
+            * { cursor: auto !important; }
+            a, button, .hover-target, .gallery-item { cursor: pointer !important; }
+            .cursor-dot, .cursor-outline { display: none !important; }
+        }
+
+        /* === MOBILE 200% PERFECT FIT FIX (NO SHAKING/SCROLLING) === */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden !important;
+        }
+
+        @media (max-width: 768px) {
+            /* 1. Resize Huge Texts */
+            .hero-title { font-size: 38px !important; margin-bottom: 15px !important;}
+            .dept-hero h1 { font-size: 38px !important; margin-bottom: 15px !important;}
+            .section-title, .about-content h2, .parallax-content h2 { font-size: 30px !important; }
+            .hero-desc, .dept-hero p { font-size: 16px !important; }
+            
+            /* 2. Adjust Box Paddings to fit small screens */
+            .hero-content { padding: 40px 20px !important; width: 100%; }
+            .about-container { padding: 40px 20px !important; }
+            .feature-card { padding: 30px 25px !important; }
+            .content-section, .about-section, .features-section, .campus-section, .jobs-section, .gallery-wrapper {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+                overflow-x: hidden;
+            }
+            
+            /* 3. Prevent Grids & Images from pushing the screen */
+            .swiper { width: 100% !important; border-radius: 0; }
+            .obj-grid, .features-grid, .jobs-grid, .faculty-grid { gap: 20px !important; }
+            
+            /* 4. Fix the bouncing Badge */
+            .about-badge { 
+                left: 50% !important; 
+                transform: translateX(-50%) !important; 
+                bottom: -25px !important; 
+                width: 90%; 
+                justify-content: center;
+                animation: none !important; /* Stops the shaking */
+            }
+            
+            /* 5. Fix Marquee overflowing */
+            .marquee-item { padding: 0 20px !important; font-size: 12px !important; }
+        }
+
+        /* === MOBILE PERFORMANCE & SMOOTHNESS FIX === */
+        @media (max-width: 768px) {
+            /* 1. Stop heavy background animations */
+            body {
+                animation: none !important; /* மொபைலில் பேக்ரவுண்ட் அனிமேஷன் ஆஃப் */
+            }
+            .mesh-blob {
+                display: none !important; /* மொபைலில் மிதக்கும் கலர்கள் ஆஃப் (GPU சேமிக்க) */
+            }
+            
+            /* 2. Fix Navbar Lag (Remove expensive blur effect) */
+            .navbar, .nav-links, .dropdown-content {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(255, 255, 255, 1) !important; /* Solid White Color */
+            }
+
+            /* 3. Hardware acceleration for smooth scrolling */
+            .scroll-anim, .gallery-item img, .feature-card {
+                will-change: transform, opacity; 
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <div id="preloader"><div class="loader-ring"></div></div>
+    <div class="cursor-dot" id="cursor-dot"></div><div class="cursor-outline" id="cursor-outline"></div>
+    <div class="mesh-bg">
+        <div class="mesh-blob blob-1"></div><div class="mesh-blob blob-2"></div><div class="mesh-blob blob-3"></div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="logo-container magnetic-wrap hover-target"><img src="/static/logo.png" alt="College Logo" class="logo-img"></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">College ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="about.html">College Profile</a></li>
+                        <li><a href="about-founder.html">About Founder</a></li>
+                        <li><a href="about-secretary.html">About Secretary</a></li>
+                        <li><a href="about-principal.html">About Principal</a></li>
+                        <li><a href="about-administration.html">Administration</a></li>
+                        <li><a href="about-vision.html">Vision & Mission</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Departments ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="department-english.html">Unaided - English</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Academics ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="academics-strength.html">Students Strength</a></li>
+                        <li><a href="academics-rank-holders.html">Rank Holders</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Activities ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="activities-ecoclub.html">Eco Club</a></li>
+                        <li><a href="activities-antiragging.html">Anti Ragging Cell</a></li>
+                        <li><a href="activities-womencell.html">Women Cell</a></li>
+                        <li><a href="activities-placement.html">Career Placement</a></li>
+                        <li><a href="activities-alumni.html">Alumni</a></li>
+                    </ul>
+                </li>
+                <li><a href="nirf.html">NIRF</a></li>
+                <li><a href="iqac.html" class="active" style="color: var(--color-purple);">IQAC</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="magnetic-wrap"><a href="admission.html" class="btn btn-gradient hover-target magnetic-btn" style="text-decoration: none;">Apply Now ➔</a></div>
+        </div>
+    </nav>
+
+    <div class="marquee-wrapper">
+        <div class="marquee-content">
+            <a href="admission.html" class="marquee-item c-blue hover-target">
+                <span class="ticker-badge">LIVE</span> Admission Open. Register for B.A & M.A English 
+            </a>
+            <a href="admission.html" class="marquee-item c-pink hover-target">
+                <span class="ticker-badge">NEW</span> Admission Open. Register for B.A & M.A English 
+            </a>
+            <a href="admission.html" class="marquee-item c-orange hover-target">
+                <span class="ticker-badge">APPLY</span> Admission Open. Register for B.A & M.A English 
+            </a>
+            <a href="admission.html" class="marquee-item c-green hover-target">
+                <span class="ticker-badge">LIVE</span> Admission Open. Register for B.A & M.A English 
+            </a>
+        </div>
+    </div>
+
+    <header class="page-hero scroll-anim">
+        <span class="hero-tag">Quality Assurance</span>
+        <h1><span class="text-gradient-purple">Internal Quality</span> Assurance Cell</h1>
+        <p style="font-size: 20px; color: var(--text-muted); font-weight: 500; max-width: 800px; margin: 0 auto; line-height: 1.6;">The central quality-monitoring body functioning to promote academic and administrative excellence.</p>
+    </header>
+
+    <section class="content-section">
+        
+        <div class="intro-grid">
+            <div class="intro-box scroll-anim hover-target">
+                <p>To create quality, to maintain quality, to enhance quality in all spheres – that is the task of the IQAC or the Internal Quality Assurance Cell of the college. It functions under the Chairmanship of the Principal and comprises senior faculty members, representative from the local community and a student representative. The IQAC functions with the belief that excellence and quality are not one-time goals but continuous processes.</p>
+            </div>
+            
+            <div class="focus-card fc-1 scroll-anim hover-target">
+                <div class="focus-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                <p>Defines the short-term and long-term objectives of the institution.</p>
+            </div>
+            <div class="focus-card fc-2 scroll-anim hover-target">
+                <div class="focus-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                <p>Creates a benchmark for quality-enhancement measures.</p>
+            </div>
+            <div class="focus-card fc-3 scroll-anim hover-target">
+                <div class="focus-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                <p>Devises a work plan to achieve objectives.</p>
+            </div>
+            <div class="focus-card fc-4 scroll-anim hover-target">
+                <div class="focus-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></div>
+                <p>Monitors and coordinates the execution of tasks.</p>
+            </div>
+        </div>
+
+        <div class="obj-func-wrapper">
+            <div class="list-box scroll-anim hover-target" style="--box-color: var(--color-orange);">
+                <h3>Objectives</h3>
+                <ul class="custom-list">
+                    <li>To ensure quality standards in teaching, learning and evaluation patterns.</li>
+                    <li>To administer various new academic activities to supplement existing practices.</li>
+                    <li>To encourage activities in the co-curricular and extra-curricular spheres.</li>
+                </ul>
+            </div>
+            
+            <div class="list-box scroll-anim hover-target" style="--box-color: var(--color-green);">
+                <h3>Functions & Responsibilities</h3>
+                <ul class="custom-list">
+                    <li>Developing ethical work culture in the Institute.</li>
+                    <li>Improving academic and administrative performance.</li>
+                    <li>Organizing Workshops, Seminars, and Research activities.</li>
+                    <li>Ensuring a learner-centric ambience for quality education.</li>
+                    <li>Adopting new technology & innovations for participatory teaching.</li>
+                    <li>Inviting suggestions from stakeholders on institutional policies.</li>
+                    <li>Documentation of all the activities leading to quality improvement.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title scroll-anim"><span class="text-gradient-cyan">Committee Members</span></h2>
+        
+        <div class="table-wrapper scroll-anim hover-target">
+            <div class="table-header-title">
+                <h2>IQAC Committee Details</h2>
+                <p>Cycle-4 (2023 - 2027)</p>
+            </div>
+            
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">Sl.No</th>
+                        <th style="width: 40%;">Name of the Member</th>
+                        <th style="width: 25%;">Designation</th>
+                        <th style="width: 25%;">Category / Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight-row-1">
+                        <td data-label="Sl.No">1</td>
+                        <td data-label="Name">Dr. (Major) L. Ravisankar</td>
+                        <td data-label="Designation">Principal</td>
+                        <td data-label="Role"><span class="cat-badge">Chairperson</span></td>
+                    </tr>
+                    <tr class="highlight-row-2">
+                        <td data-label="Sl.No">2</td>
+                        <td data-label="Name">Dr. A. Packiamuthu</td>
+                        <td data-label="Designation">Associate Prof & Head, Dept of Tamil</td>
+                        <td data-label="Role"><span class="cat-badge">IQAC Coordinator</span></td>
+                    </tr>
+                    <tr class="highlight-row-2">
+                        <td data-label="Sl.No">3</td>
+                        <td data-label="Name">Dr. P. Muthumurugan</td>
+                        <td data-label="Designation">Asst Prof & Head, Dept of Economics</td>
+                        <td data-label="Role"><span class="cat-badge">Co - Coordinator</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">4</td>
+                        <td data-label="Name">Dr. A. Ponmozhi</td>
+                        <td data-label="Designation">Asst Prof of Commerce</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">5</td>
+                        <td data-label="Name">Dr. M. Kannan</td>
+                        <td data-label="Designation">Asst Prof of Chemistry</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">6</td>
+                        <td data-label="Name">Dr. A. Adaikalam</td>
+                        <td data-label="Designation">Asst Prof of History</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">7</td>
+                        <td data-label="Name">Dr. G. Magesh</td>
+                        <td data-label="Designation">Asst Prof of Physics</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">8</td>
+                        <td data-label="Name">Ms. J. Rama</td>
+                        <td data-label="Designation">Asst Prof of English</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">9</td>
+                        <td data-label="Name">Dr. M. Jegatheesan</td>
+                        <td data-label="Designation">Asst Prof of Tamil</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">10</td>
+                        <td data-label="Name">Mrs. A. Sharmila Begum</td>
+                        <td data-label="Designation">Asst Prof of Commerce</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">11</td>
+                        <td data-label="Name">Dr. S. Muthukrishnammal</td>
+                        <td data-label="Designation">Asst Prof of Commerce</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">12</td>
+                        <td data-label="Name">Dr. S. Baalachandaran</td>
+                        <td data-label="Designation">Librarian</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">13</td>
+                        <td data-label="Name">Dr. B. Palanikumar</td>
+                        <td data-label="Designation">Director of Physical Education</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">14</td>
+                        <td data-label="Name">Dr. A. Ramalakshmi</td>
+                        <td data-label="Designation">Asst Prof of Computer Science (SF)</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">15</td>
+                        <td data-label="Name">Mr. M. Thangaraj</td>
+                        <td data-label="Designation">Asst Prof of English (SF)</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">16</td>
+                        <td data-label="Name">Mr. S. Muthuramalingam</td>
+                        <td data-label="Designation">Asst Prof of Commerce (SF)</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">17</td>
+                        <td data-label="Name">Mr. V. Sivathanu</td>
+                        <td data-label="Designation">Office-Superintendent (in-charge)</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">18</td>
+                        <td data-label="Name">Selvi. R. Selsiya</td>
+                        <td data-label="Designation">II.B.Sc (Chemistry)</td>
+                        <td data-label="Role"><span class="cat-badge">Student Representative</span></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Sl.No">19</td>
+                        <td data-label="Name">Mrs. R. Uma Maheswari</td>
+                        <td data-label="Designation">Industrialist</td>
+                        <td data-label="Role"><span class="cat-badge">Member</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <footer id="contact" class="footer scroll-anim">
+        <div class="footer-glow"></div>
+        <div class="footer-glow-2"></div>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <img src="/static/logo.png" alt="College Logo" style="height: 60px; margin-bottom: 25px; display: block; object-fit: contain;">
+                    <div class="footer-mission-box hover-target">
+                        <p>The mission in its most succinct form is enshrined in the motto’s for goal, it is explicitly stated in the College calendar. As for the other goals and objectives, each of them is a recognizable part of our College tradition, frequently talked about in our meetings and implicitly expressed in our policies, practices and activities.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="sl-ig hover-target">IG</a>
+                        <a href="#" class="sl-fb hover-target">FB</a>
+                        <a href="#" class="sl-yt hover-target">YT</a>
+                    </div>
+                </div>
+                <div><h4>Academics</h4><ul class="footer-links"><li><a href="department-english.html">B.A English</a></li><li><a href="department-english.html">M.A English</a></li><li><a href="academics-rank-holders.html">Rank Holders</a></li></ul></div>
+                <div><h4>College</h4><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="about-administration.html">Administration</a></li><li><a href="#">IQAC</a></li></ul></div>
+                <div><h4>Reach Us</h4><div class="footer-contact-box hover-target"><p>Admission Desk</p><a href="tel:+911234567890">04634 - 220327</a></div></div>
+            </div>
+            <div class="footer-bottom"><div>&copy; 2026 TVC English Dept (SF).</div><div>Location: Papanasam, TN</div></div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 500); });
+        gsap.registerPlugin(ScrollTrigger);
+        
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+
+        const cursorDot = document.getElementById('cursor-dot'), cursorOutline = document.getElementById('cursor-outline');
+        window.addEventListener('mousemove', (e) => { cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; setTimeout(() => { cursorOutline.style.left = e.clientX + 'px'; cursorOutline.style.top = e.clientY + 'px'; }, 50); });
+        document.querySelectorAll('.hover-target, a, button').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); });
+
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.parentElement.addEventListener('mousemove', (e) => {
+                const rect = btn.parentElement.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.4; 
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.4;
+                btn.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            btn.parentElement.addEventListener('mouseleave', () => { btn.style.transform = `translate(0px, 0px)`; });
+        });
+
+        gsap.utils.toArray('.scroll-anim').forEach(el => { gsap.from(el, { scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" }, y: 40, opacity: 0, duration: 0.8 }); });
+
+        // Mobile Menu Toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if(mobileMenu) {
+    // 1. Hamburger icon-a click panna open/close aaga
+    mobileMenu.addEventListener('click', (e) => { 
+        navLinks.classList.toggle('active'); 
+        e.stopPropagation(); // Intha click body-ku pogama thadukka
+    });
+
+    // 2. Veliya yengayachu thotta close aaga (Puthusa add pannathu)
+    document.addEventListener('click', (e) => {
+        // Menu open-la irukka nu check pannuthu, apram click pannathu menu-kulla illanu check pannuthu
+        if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+        }
+    });
+}
+    </script>
+</body>
+</html>

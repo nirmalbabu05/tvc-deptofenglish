@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department of English | Thiruvalluvar College</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === VIBRANT LIGHT THEME VARIABLES === */
+        :root { 
+            --bg-main: #ffffff; 
+            --bg-alt: #f8fafc;
+            --text-dark: #0f172a; 
+            --text-muted: #475569; 
+            
+            --color-blue: #2563eb; 
+            --color-cyan: #06b6d4; 
+            --color-purple: #8b5cf6;
+            --color-pink: #ec4899;
+            --color-orange: #f97316;
+            --color-green: #10b981;
+            --color-rose: #f43f5e;
+
+            --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.08);
+            --shadow-glow: 0 10px 30px rgba(37, 99, 235, 0.2);
+            --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; cursor: none; }
+        html { scroll-behavior: smooth; } 
+        body { 
+            background: linear-gradient(-45deg, #ffffff, #f0fdfa, #eff6ff, #fdf2f8);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark); overflow-x: hidden; line-height: 1.6; 
+        } 
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        a, button { cursor: none; text-decoration: none;} 
+        ul { list-style: none; }
+
+        /* === PRELOADER & CURSOR === */
+        #preloader { position: fixed; inset: 0; background: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
+        .loader-ring { width: 60px; height: 60px; border: 4px solid #e2e8f0; border-top-color: var(--color-pink); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .cursor-dot { width: 8px; height: 8px; background: var(--color-pink); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999999 !important; transition: width 0.2s, height 0.2s; }
+        .cursor-outline { width: 40px; height: 40px; border: 2px solid rgba(236, 72, 153, 0.5); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999998 !important; transition: width 0.2s, height 0.2s, border-color 0.2s; transition-duration: 150ms; transition-timing-function: ease-out; }
+        body.hovering .cursor-dot { width: 0; height: 0; }
+        body.hovering .cursor-outline { width: 60px; height: 60px; background: rgba(37, 99, 235, 0.1); border-color: var(--color-blue); backdrop-filter: blur(2px); }
+
+        /* === DYNAMIC MESH BACKGROUND === */
+        .mesh-bg { position: fixed; inset: 0; z-index: -3; overflow: hidden; pointer-events: none; }
+        .mesh-blob { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25; animation: floatMesh 20s infinite alternate ease-in-out; }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--color-blue); }
+        .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: var(--color-pink); animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: var(--color-orange); animation-delay: -10s; }
+        @keyframes floatMesh { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(10vw, 15vh) scale(1.2); } 100% { transform: translate(-10vw, 5vh) scale(0.8); } }
+
+        /* === MULTI-COLOR TYPOGRAPHY & BUTTONS === */
+        .text-gradient-purple { background: linear-gradient(to right, var(--color-purple), var(--color-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-blue { background: linear-gradient(to right, var(--color-blue), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-orange { background: linear-gradient(to right, var(--color-orange), #fcd34d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-green { background: linear-gradient(to right, var(--color-green), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-rose { background: linear-gradient(to right, var(--color-rose), var(--color-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .btn { padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 700; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; box-shadow: var(--shadow-soft); text-decoration: none; }
+        .btn-gradient { background: linear-gradient(135deg, var(--color-blue), var(--color-purple)); color: white; }
+        .btn-gradient:hover { transform: translateY(-5px); box-shadow: var(--shadow-glow); background: linear-gradient(135deg, var(--color-purple), var(--color-pink)); }
+
+        .magnetic-wrap { display: inline-block; }
+
+        /* === NAVBAR === */
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: 85px; background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(20px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, var(--color-blue), var(--color-pink), var(--color-orange), var(--color-green)) 1; z-index: 1000; display: flex; align-items: center; transition: all 0.4s; }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 75px; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+        .logo-img { height: 45px; display: block; object-fit: contain; }
+        .nav-links { display: flex; gap: 30px; align-items: center; position: absolute; left: 50%; transform: translateX(-50%); height: 100%;}
+        .nav-links > li { height: 100%; display: flex; align-items: center; position: relative; }
+        .nav-links a { font-size: 15px; font-weight: 700; color: var(--text-muted); transition: 0.3s; position: relative; padding-bottom: 5px; text-decoration: none; }
+        .nav-links > li > a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 50%; transition: 0.3s var(--smooth); transform: translateX(-50%); border-radius: 5px; }
+        
+        .nav-links > li:nth-child(1) > a:hover { color: var(--color-blue); } .nav-links > li:nth-child(1) > a::after { background: var(--color-blue); }
+        .nav-links > li:nth-child(2) > a:hover, .nav-links > li:nth-child(2) > a.active { color: var(--color-pink); }
+        .nav-links > li:nth-child(2) > a.active::after, .nav-links > li:nth-child(2) > a:hover::after { background: var(--color-pink); width: 100%; }
+        .nav-links > li:nth-child(3) > a:hover, .nav-links > li:nth-child(3) > a.active { color: var(--color-orange); } .nav-links > li:nth-child(3) > a.active::after, .nav-links > li:nth-child(3) > a:hover::after { background: var(--color-orange); width: 100%; }
+        .nav-links > li:nth-child(4) > a:hover { color: var(--color-green); } .nav-links > li:nth-child(4) > a::after { background: var(--color-green); }
+        .nav-links > li > a:hover::after { width: 100%; }
+
+        .dropdown-content { position: absolute; top: 85px; left: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); min-width: 240px; box-shadow: var(--shadow-soft); border-radius: 0 0 16px 16px; overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(15px); transition: all 0.3s var(--spring); padding: 10px 0; border: 1px solid rgba(0, 0, 0, 0.05); border-top: none; }
+        .nav-links li:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
+        .navbar.scrolled .dropdown-content { top: 75px; }
+        .dropdown-content li a { display: block; padding: 12px 24px; color: var(--text-muted); font-size: 14px; font-weight: 600; transition: 0.3s; position: relative; }
+        .dropdown-content li a:hover { background: #fff7ed; color: var(--color-orange); padding-left: 30px; border-left: 3px solid var(--color-orange); }
+
+        /* === HERO SECTION === */
+        .dept-hero { padding: 180px 24px 80px; text-align: center; position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+        .dept-tag { display: inline-block; padding: 8px 24px; border-radius: 30px; background: rgba(236, 72, 153, 0.1); color: var(--color-pink); font-weight: 800; font-size: 14px; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 2px;}
+        .dept-hero h1 { font-size: 60px; font-weight: 800; line-height: 1.1; color: var(--text-dark); margin-bottom: 20px; letter-spacing: -2px; }
+        .dept-hero p { font-size: 20px; color: var(--text-muted); font-weight: 500; max-width: 700px; margin: 0 auto; line-height: 1.6;}
+
+        /* === COMMON SECTION PADDING === */
+        .content-section { max-width: 1400px; margin: 0 auto; padding: 60px 24px; position: relative; z-index: 2; }
+        .section-title { font-size: 42px; font-weight: 800; margin-bottom: 50px; text-align: center; letter-spacing: -1px; color: var(--text-dark);}
+
+        /* === OBJECTIVES SECTION === */
+        .obj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .obj-card {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px);
+            padding: 40px; border-radius: 25px; box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.9); transition: all 0.4s var(--spring);
+            border-left: 5px solid var(--color-orange); position: relative; overflow: hidden;
+        }
+        .obj-card:hover { transform: translateY(-10px); background: white; box-shadow: var(--shadow-glow); border-left-color: var(--color-pink);}
+        .obj-card p { font-size: 17px; color: var(--text-muted); font-weight: 500; line-height: 1.7; margin: 0; position: relative; z-index: 2;}
+        .obj-card .icon-watermark { position: absolute; right: -20px; bottom: -20px; opacity: 0.05; color: var(--color-orange); transition: 0.4s; }
+        .obj-card:hover .icon-watermark { transform: scale(1.2) rotate(-10deg); color: var(--color-pink); opacity: 0.1;}
+
+        /* === FACULTY SECTION === */
+        .faculty-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; margin-top: 20px;}
+        
+        .fac-card {
+            background: white; border-radius: 30px; padding: 40px 30px; text-align: center;
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.4s ease; position: relative; 
+        }
+        .fac-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15); z-index: 10; }
+        .fac-card.hod-card { border: 2px solid var(--color-blue); background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%); }
+        
+        /* HOD Badge */
+        .fac-card.hod-card::before { 
+            content: 'Head of Department'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); 
+            background: var(--color-blue); color: white; padding: 8px 24px; border-radius: 20px; 
+            font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; 
+            white-space: nowrap; z-index: 5; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        .fac-avatar {
+            width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            background: var(--bg-alt); border: 4px solid white;
+            overflow: hidden; 
+        }
+        
+        .av-1 { border-color: #cbd5e1; }
+        .av-2 { border-color: #e2e8f0; }
+
+        .fac-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .fac-card h4 { font-size: 22px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; line-height: 1.2;}
+        .fac-card .quals { font-size: 14px; font-weight: 700; color: var(--color-pink); margin-bottom: 8px;}
+        .fac-card .role { font-size: 16px; color: var(--text-muted); font-weight: 600; margin: 0;}
+
+        /* === JOB OPPORTUNITIES === */
+        .jobs-section { background: rgba(255, 255, 255, 0.5); padding: 100px 24px; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);}
+        .jobs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
+        
+        .job-card {
+            background: linear-gradient(135deg, #ffffff, #f8fafc); padding: 40px; border-radius: 30px;
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,1);
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .job-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: var(--shadow-glow); }
+        .job-icon { width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);}
+        
+        .jc-1 .job-icon { background: linear-gradient(135deg, var(--color-blue), var(--color-cyan)); }
+        .jc-2 .job-icon { background: linear-gradient(135deg, var(--color-pink), var(--color-rose)); }
+        .jc-3 .job-icon { background: linear-gradient(135deg, var(--color-orange), #fcd34d); }
+        .jc-4 .job-icon { background: linear-gradient(135deg, var(--color-green), var(--color-cyan)); }
+
+        .job-card h3 { font-size: 22px; font-weight: 800; color: var(--text-dark); margin-bottom: 15px;}
+        .job-card p { font-size: 16px; color: var(--text-muted); font-weight: 500; line-height: 1.7; margin: 0;}
+
+        /* === PERFECT MASONRY GALLERY (NO CROP, NO EMPTY SPACE) === */
+        .gallery-wrapper { padding: 80px 24px; max-width: 1400px; margin: 0 auto; text-align: center; }
+        
+        .gallery-grid { 
+            column-count: 4; 
+            column-gap: 20px; 
+            margin-top: 40px; 
+        }
+        
+        .gallery-item { 
+            position: relative; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-soft); 
+            background: white; cursor: none; padding: 8px; /* Beautiful Photo Frame */
+            margin-bottom: 20px; break-inside: avoid; display: inline-block; width: 100%;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .gallery-item img { 
+            width: 100%; height: auto; /* Adapts to exact image size */
+            display: block; border-radius: 16px; transition: transform 0.6s var(--smooth); 
+        }
+        
+        .gallery-item:hover img { transform: scale(1.05); }
+        
+        .gallery-overlay {
+            position: absolute; inset: 8px; border-radius: 16px;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, transparent 60%);
+            display: flex; align-items: flex-end; padding: 20px; opacity: 0;
+            transition: opacity 0.4s ease; pointer-events: none;
+        }
+        
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        
+        .gallery-overlay h4 { 
+            color: white; margin: 0; font-size: 20px; font-weight: 700;
+            transform: translateY(15px); transition: transform 0.4s var(--spring); 
+        }
+        
+        .gallery-item:hover .gallery-overlay h4 { transform: translateY(0); }
+
+        @media (max-width: 992px) {
+            .jobs-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-grid { column-count: 2; }
+        }
+        @media (max-width: 768px) {
+            .jobs-grid { grid-template-columns: 1fr; }
+            .dept-hero h1 { font-size: 42px; }
+            .gallery-grid { column-count: 1; }
+        }
+
+        /* === FOOTER === */
+        .footer { background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); padding: 100px 0 40px; position: relative; overflow: hidden; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 0px;}
+        .footer::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--color-blue), var(--color-pink), var(--color-orange), var(--color-green), var(--color-cyan)); }
+        .footer-container { max-width: 1320px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10; }
+        .footer-grid { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 60px; }
+        .footer-mission-box { background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255,255,255,0.8); padding: 25px; border-radius: 20px; border-left: 4px solid var(--color-pink); }
+        .footer-mission-box p { color: var(--text-muted); font-size: 15px; line-height: 1.7; font-weight: 500; margin: 0; }
+        .social-links { display: flex; gap: 15px; }
+        .social-links a { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: all 0.4s var(--spring); font-weight: 700; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: #1877f2;}
+        .social-links a:hover { transform: translateY(-8px) scale(1.1); box-shadow: 0 15px 25px rgba(0,0,0,0.15); }
+        .footer h4 { font-size: 20px; font-weight: 800; margin-bottom: 25px; letter-spacing: 0.5px; position: relative; display: inline-block;}
+        .footer h4::after { content: ''; position: absolute; left: 0; bottom: -8px; height: 3px; width: 20px; border-radius: 3px; background: var(--color-blue);}
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 15px; } 
+        .footer-links a { color: var(--text-muted); transition: 0.3s; font-weight: 600; display: inline-block; text-decoration: none; position: relative;}
+        .footer-links a:hover { color: var(--color-cyan); transform: translateX(8px); }
+        .footer-contact-box { background: linear-gradient(135deg, var(--color-cyan), var(--color-blue)); padding: 30px; border-radius: 24px; color: white; box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2); position: relative; overflow: hidden; }
+        .footer-contact-box::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%); opacity: 0.5; }
+        .footer-contact-box p { color: rgba(255,255,255,0.9); font-weight: 600; margin-bottom: 5px; font-size: 14px; position: relative; z-index: 2;}
+        .footer-contact-box a { font-size: 26px; font-weight: 800; color: white; text-decoration: none; position: relative; z-index: 2; display: inline-block;}
+        .footer-bottom { border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 15px; color: var(--text-muted); font-weight: 600; }
+        @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-grid > div:nth-child(1) { grid-column: span 2; } }
+        @media (max-width: 576px) { .footer-grid { grid-template-columns: 1fr; } .footer-grid > div:nth-child(1) { grid-column: span 1; } .footer-bottom { flex-direction: column; gap: 10px; text-align: center; } }
+    
+        /* === FINAL MOBILE NAVBAR FIX (BUTTER SMOOTH) === */
+        .menu-toggle { display: none; color: var(--text-dark); cursor: pointer; z-index: 1001; }
+        
+        @media (max-width: 992px) {
+            .menu-toggle { display: block; margin-right: 15px; }
+            
+            /* 1. Optimize Main Navbar (No Blur, Solid White to stop lag) */
+            .navbar {
+                background: #ffffff !important; 
+                backdrop-filter: none !important; 
+                -webkit-backdrop-filter: none !important;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+                padding: 10px 0 !important;
+                will-change: transform, opacity; 
+            }
+            
+            /* 2. Smooth Sliding Menu */
+            .nav-links {
+                position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+                background: #ffffff !important; 
+                backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+                flex-direction: column; align-items: flex-start; justify-content: flex-start;
+                padding: 100px 30px 40px; 
+                transform: translateX(100%); 
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); 
+                left: auto; box-shadow: -5px 0 30px rgba(0,0,0,0.1); 
+                overflow-y: auto; z-index: 1000;
+            }
+            
+            .nav-links.active { transform: translateX(0); }
+            
+            .nav-links > li { height: auto; width: 100%; margin-bottom: 15px; display: block; }
+            .nav-links a { font-size: 16px; padding-bottom: 2px; display: block; }
+            
+            /* 3. Fixed Sub-headings (Always open neatly, NO JUMPING) */
+            .navbar.scrolled .dropdown-content {
+                top: 0 !important;
+            }
+            .dropdown-content {
+                position: relative !important; 
+                top: 0 !important; 
+                left: 0; box-shadow: none; border: none; 
+                padding-left: 15px; padding-top: 5px; opacity: 1; visibility: visible; 
+                display: block !important; 
+                transform: none; background: transparent;
+                border-left: 2px solid #e2e8f0; margin-top: 8px; border-radius: 0;
+            }
+            
+            .dropdown-content li { margin-bottom: 0; }
+            .dropdown-content li a { 
+                padding: 8px 15px; font-size: 14px; font-weight: 500; 
+                color: var(--text-muted); 
+            }
+            
+            .nav-right-items { display: flex; align-items: center; gap: 10px; z-index: 1001; position: relative;}
+        }
+        
+        @media (max-width: 576px) {
+            .magnetic-wrap .btn { padding: 10px 15px; font-size: 14px; }
+            .logo-img { height: 35px; }
+        }
+
+        /* === DISABLE CUSTOM CURSOR ON MOBILE & TOUCH DEVICES === */
+        @media (hover: none) and (pointer: coarse), (max-width: 992px) {
+            * { cursor: auto !important; }
+            a, button, .hover-target, .gallery-item { cursor: pointer !important; }
+            .cursor-dot, .cursor-outline { display: none !important; }
+        }
+
+        /* === MOBILE 200% PERFECT FIT FIX (NO SHAKING/SCROLLING) === */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden !important;
+        }
+
+        @media (max-width: 768px) {
+            /* 1. Resize Huge Texts */
+            .hero-title { font-size: 38px !important; margin-bottom: 15px !important;}
+            .dept-hero h1 { font-size: 38px !important; margin-bottom: 15px !important;}
+            .section-title, .about-content h2, .parallax-content h2 { font-size: 30px !important; }
+            .hero-desc, .dept-hero p { font-size: 16px !important; }
+            
+            /* 2. Adjust Box Paddings to fit small screens */
+            .hero-content { padding: 40px 20px !important; width: 100%; }
+            .about-container { padding: 40px 20px !important; }
+            .feature-card { padding: 30px 25px !important; }
+            .content-section, .about-section, .features-section, .campus-section, .jobs-section, .gallery-wrapper {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+                overflow-x: hidden;
+            }
+            
+            /* 3. Prevent Grids & Images from pushing the screen */
+            .swiper { width: 100% !important; border-radius: 0; }
+            .obj-grid, .features-grid, .jobs-grid, .faculty-grid { gap: 20px !important; }
+            
+            /* 4. Fix the bouncing Badge */
+            .about-badge { 
+                left: 50% !important; 
+                transform: translateX(-50%) !important; 
+                bottom: -25px !important; 
+                width: 90%; 
+                justify-content: center;
+                animation: none !important; /* Stops the shaking */
+            }
+            
+            /* 5. Fix Marquee overflowing */
+            .marquee-item { padding: 0 20px !important; font-size: 12px !important; }
+        }
+
+        /* === MOBILE PERFORMANCE & SMOOTHNESS FIX === */
+        @media (max-width: 768px) {
+            /* 1. Stop heavy background animations */
+            body {
+                animation: none !important; /* மொபைலில் பேக்ரவுண்ட் அனிமேஷன் ஆஃப் */
+            }
+            .mesh-blob {
+                display: none !important; /* மொபைலில் மிதக்கும் கலர்கள் ஆஃப் (GPU சேமிக்க) */
+            }
+            
+            /* 2. Fix Navbar Lag (Remove expensive blur effect) */
+            .navbar, .nav-links, .dropdown-content {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(255, 255, 255, 1) !important; /* Solid White Color */
+            }
+
+            /* 3. Hardware acceleration for smooth scrolling */
+            .scroll-anim, .gallery-item img, .feature-card {
+                will-change: transform, opacity; 
+            }
+        }
+
+        /* === RANK TABLE STYLES (For Dept Page) === */
+        .rank-section { max-width: 1200px; margin: 50px auto 100px; padding: 0 24px; position: relative; z-index: 2; }
+        
+        .table-wrapper {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+            border-radius: 30px; overflow: hidden; box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .table-header-title {
+            background: linear-gradient(135deg, var(--color-orange), var(--color-pink));
+            padding: 30px; text-align: center; color: white;
+        }
+        .table-header-title h2 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;}
+        
+        .styled-table { width: 100%; border-collapse: collapse; }
+        .styled-table thead tr { background: #f8fafc; color: var(--text-muted); text-align: left; border-bottom: 2px solid rgba(0,0,0,0.05);}
+        .styled-table th { padding: 20px 30px; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .styled-table td { padding: 18px 30px; font-size: 17px; font-weight: 600; color: var(--text-dark); border-bottom: 1px solid rgba(0,0,0,0.03); transition: 0.3s; vertical-align: middle;}
+        .styled-table tbody tr { transition: all 0.3s ease; background: white;}
+        
+        .student-info { display: flex; align-items: center; gap: 15px; }
+        
+        /* Gold Medalist Styling */
+        .rank-gold { 
+            background: linear-gradient(to right, #fffbeb, #ffffff) !important; 
+            border-left: 5px solid #f59e0b; 
+        }
+        .rank-gold:hover { 
+            transform: scale(1.02); 
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.15); 
+            z-index: 10; position: relative;
+        }
+        .rank-gold td { color: #b45309; font-weight: 800; border-bottom: 1px solid rgba(245, 158, 11, 0.1);}
+        .rank-gold .student-avatar { 
+            width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 16px; font-weight: 800; color: white; flex-shrink: 0;
+            background: linear-gradient(135deg, #f59e0b, #fbbf24); 
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        /* =========================================================
+           === LARGE ALUMNI GRID STYLES (WITH SILHOUETTE AVATAR) ===
+           ========================================================= */
+        .alumni-large-section { padding: 80px 24px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+        
+        .alumni-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px; margin-top: 50px;
+        }
+
+        .alumni-card-large {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+            border-radius: 30px; padding: 40px 25px; text-align: center;
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(255, 255, 255, 0.9);
+            transition: transform 0.4s var(--spring), box-shadow 0.4s, border-color 0.4s;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .alumni-card-large:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(6, 182, 212, 0.15);
+            border-color: var(--color-cyan);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Large Avatar Container */
+        .avatar-large-container {
+            width: 130px; height: 130px; margin: 0 auto 25px auto;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden; 
+            box-shadow: 0 15px 25px rgba(37, 99, 235, 0.2);
+            transition: transform 0.4s var(--spring), border-color 0.4s;
+            border: 4px solid #fff; 
+        }
+        .alumni-card-large:hover .avatar-large-container {
+            transform: scale(1.08) rotate(5deg);
+            border-color: var(--color-cyan);
+        }
+
+        /* Fallback Design (Silhouette Avatar) */
+        .avatar-fallback {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1); 
+            display: flex; align-items: flex-end; 
+            justify-content: center;
+            color: #94a3b8; 
+        }
+        .avatar-fallback svg {
+            width: 85%; height: 85%; 
+            margin-bottom: -5px; 
+        }
+
+        /* Real Image Styling (For future use) */
+        .alumni-avatar-img {
+            width: 100%; height: 100%; object-fit: cover;
+            border-radius: 50%; display: block;
+        }
+
+        .alumni-card-large h4 { font-size: 24px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; transition: color 0.3s;}
+        .alumni-card-large:hover h4 { color: #000; }
+        
+        .alumni-batch-large {
+            display: inline-block; background: rgba(249, 115, 22, 0.1); color: var(--color-orange);
+            padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; margin-bottom: 15px;
+        }
+        
+        .alumni-desc-large { font-size: 16px; color: var(--text-muted); font-weight: 600; line-height: 1.6; margin: 0; transition: color 0.3s; }
+        .alumni-card-large:hover .alumni-desc-large { color: var(--text-dark); }
+
+        /* Table Responsive */
+        @media (max-width: 768px) {
+            .styled-table thead { display: none; }
+            .styled-table, .styled-table tbody, .styled-table tr, .styled-table td { display: block; width: 100%; }
+            .styled-table tr { margin-bottom: 15px; border: 1px solid #eee; border-radius: 15px; overflow: hidden; }
+            .styled-table td { text-align: right; padding-left: 50%; position: relative; border-bottom: 1px solid #f1f1f1; min-height: 50px; display: flex; align-items: center; justify-content: flex-end;}
+            .styled-table td::before { content: attr(data-label); position: absolute; left: 20px; width: 45%; text-align: left; font-weight: 800; color: var(--color-cyan); text-transform: uppercase; font-size: 13px;}
+            .student-info { justify-content: flex-end;}
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <div id="preloader"><div class="loader-ring"></div></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <div class="mesh-bg">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+        <div class="mesh-blob blob-3"></div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="logo-container magnetic-wrap hover-target">
+                <a href="index.html"><img src="/static/logo.png" alt="College Logo" class="logo-img"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">College ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="about.html">College Profile</a></li>
+                        <li><a href="about-founder.html">About Founder</a></li>
+                        <li><a href="about-secretary.html">About Secretary</a></li>
+                        <li><a href="about-principal.html">About Principal</a></li>
+                        <li><a href="about-administration.html">Administration</a></li>
+                        <li><a href="about-vision.html">Vision & Mission</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="active">Departments ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="department-english.html" class="hover-target" style="color: var(--color-orange);">Unaided - English</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Academics ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="academics-strength.html">Students Strength</a></li>
+                        <li><a href="academics-rank-holders.html">Rank Holders</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Activities ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="activities-ecoclub.html">ECO Club</a></li>
+                        <li><a href="activities-antiragging.html" class="hover-target">Anti Ragging Cell</a></li>
+                        <li><a href="activities-womencell.html" class="hover-target">Women Cell</a></li>
+                        <li><a href="activities-placement.html" class="hover-target">Career Placement</a></li>
+                        <li><a href="activities-alumini.html" class="hover-target">Alumni</a></li>
+                    </ul>
+                </li>
+                <li><a href="nirf.html">NIRF</a></li>
+                <li><a href="iqac.html">IQAC</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-right-items">
+                <div class="menu-toggle hover-target" id="mobile-menu">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </div>
+                <div class="magnetic-wrap">
+                    <a href="admission.html" class="btn btn-gradient hover-target magnetic-btn" style="text-decoration: none;">Apply Now ➔</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="dept-hero scroll-anim">
+        <span class="dept-tag">Unaided Course</span>
+        <h1>Department of <span class="text-gradient-rose">English</span></h1>
+        <p>To strive, to seek, to find, and not to yield. Fostering linguistic excellence and literary passion since inception.</p>
+    </header>
+
+    <section class="content-section">
+        <h2 class="section-title scroll-anim">Course <span class="text-gradient-orange">Objectives</span></h2>
+        <div class="obj-grid">
+            <div class="obj-card scroll-anim hover-target">
+                <svg class="icon-watermark" width="120" height="120" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                <p>To facilitate students enrich their communication skills in the English language and inculcate in them a love for reading and interpreting literature.</p>
+            </div>
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-pink);">
+                <svg class="icon-watermark" width="120" height="120" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                <p>To enrich the aesthetic sensibility and critical acumen of the students by exposing them to good literature from around the world.</p>
+            </div>
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-green);">
+                <svg class="icon-watermark" width="120" height="120" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>
+                <p>To help them understand the nuances of life through literature and relate to fellow human beings meaningfully.</p>
+            </div>
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-blue);">
+                <svg class="icon-watermark" width="120" height="120" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72l5 2.73 5-2.73v3.72z"></path></svg>
+                <p>Providing space for optimum growth of latent talents, the department continues <em>‘to strive, to seek, to find, and not to yield.'</em></p>
+            </div>
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-purple);">
+                <svg class="icon-watermark" width="120" height="120" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"></path></svg>
+                <p>A candidate who has passed in the higher secondary examinations of Tamilnadu higher secondary board or some other board accepted by the syndicate as equivalent can apply.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" style="padding-top: 20px;">
+        <h2 class="section-title scroll-anim">Faculty <span class="text-gradient-blue">Members</span></h2>
+        
+        <div class="faculty-grid">
+            <div class="fac-card hod-card scroll-anim hover-target">
+                <div class="fac-avatar av-1"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Mr. K. Jebamani Samuel</h4>
+                <p class="quals">M.A., M.Phil.</p>
+                <p class="role">Assistant Professor & Head</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-2"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Miss. S. Quba Antonio</h4>
+                <p class="quals">M.A., M.Phil., B.Ed., SET.</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-1"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Mrs. G. Arulmozhi Rathiga Devi</h4>
+                <p class="quals">M.A., M.Phil.,B.Ed.,  NET.</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-2"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Mrs. G.S. Kavitha</h4>
+                <p class="quals">M.A., M.Phil.</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-1"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Mrs. A. Mariamma</h4>
+                <p class="quals">M.A., M.Phil., DCS.</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-2"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Mrs. L. Muthu Selva Veni</h4>
+                <p class="quals">M.A., M.Phil.</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-1"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Miss. G. Santhiya</h4>
+                <p class="quals">M.A., B.Ed.,</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-2"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Mrs. S. Ezhil Joys</h4>
+                <p class="quals">M.A., B.Ed.</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+
+            <div class="fac-card scroll-anim hover-target">
+                <div class="fac-avatar av-1"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="Staff DP"></div>
+                <h4>Mrs. P. Nandhini Devi</h4>
+                <p class="quals">M.A., M.Phil.</p>
+                <p class="role">Assistant Professor</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="jobs-section">
+        <h2 class="section-title scroll-anim">Career <span class="text-gradient-purple">Opportunities</span></h2>
+        
+        <div class="jobs-grid">
+            <div class="job-card jc-1 scroll-anim hover-target">
+                <div class="job-icon">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                </div>
+                <h3>Professional Writing</h3>
+                <p>Kickstart your career in Journalism, editorial work, and professional resume production.</p>
+            </div>
+            
+            <div class="job-card jc-2 scroll-anim hover-target">
+                <div class="job-icon">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </div>
+                <h3>Technical Writing</h3>
+                <p>Master the art of Copywriting, content creation, and professional translation services.</p>
+            </div>
+
+            <div class="job-card jc-3 scroll-anim hover-target">
+                <div class="job-icon">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <h3>Literature & Culture</h3>
+                <p>Dive deep into Poetry, drama, great authors, understanding cultural influences and critical thinking.</p>
+            </div>
+
+            <div class="job-card jc-4 scroll-anim hover-target">
+                <div class="job-icon">
+                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                </div>
+                <h3>Research Methodology</h3>
+                <p>Expertise in writing research papers following correct methodology, presenting in Seminars & Conferences.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="rank-section">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <span style="display: inline-block; padding: 8px 24px; border-radius: 30px; background: rgba(249, 115, 22, 0.1); color: var(--color-orange); font-weight: 800; font-size: 14px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px;">Pride of our Department</span>
+            <h2 style="font-size: 42px; font-weight: 800; letter-spacing: -1px;">University <span style="background: linear-gradient(to right, var(--color-orange), #fcd34d); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Rank Holders</span></h2>
+        </div>
+
+        <div class="table-wrapper scroll-anim hover-target">
+            <div class="table-header-title">
+                <h2>B.A. (English)</h2>
+            </div>
+            
+            <table class="styled-table rank-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">S.No</th>
+                        <th style="width: 20%;">Reg. No.</th>
+                        <th style="width: 45%;">Name of the Student</th>
+                        <th style="width: 15%;">Class</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">1</td>
+                        <td data-label="Reg. No.">1324985</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">SS</div>
+                                <div>SELVA SUNDARI@LATHA.G</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+                    
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">2</td>
+                        <td data-label="Reg. No.">1324990</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">SG</div>
+                                <div>STEFFI GRACE .P</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">3</td>
+                        <td data-label="Reg. No.">1324969</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">ND</div>
+                                <div>NANDHINI DEVI.P</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">4</td>
+                        <td data-label="Reg. No.">1324971</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">NJ</div>
+                                <div>NIMMY.J</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">5</td>
+                        <td data-label="Reg. No.">1324966</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">MI</div>
+                                <div>MUTHULAKSHMI.I</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">6</td>
+                        <td data-label="Reg. No.">1324972</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">PA</div>
+                                <div>PARAKATH.P.A</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">7</td>
+                        <td data-label="Reg. No.">1324981</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">SJ</div>
+                                <div>SANKARA JEYA LAKSHMI.T</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">8</td>
+                        <td data-label="Reg. No.">1324998</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">VM</div>
+                                <div>VIMALA MARY.J</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">9</td>
+                        <td data-label="Reg. No.">1324943</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">BT</div>
+                                <div>BAGAVATHI.T</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+
+                    <tr class="rank-gold hover-target">
+                        <td data-label="S.No">10</td>
+                        <td data-label="Reg. No.">1324949</td>
+                        <td data-label="Name">
+                            <div class="student-info">
+                                <div class="student-avatar">GN</div>
+                                <div>GAYATHRI.N</div>
+                            </div>
+                        </td>
+                        <td data-label="Class">BA(Eng)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="alumni-large-section scroll-anim">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <span style="display: inline-block; padding: 8px 24px; border-radius: 30px; background: rgba(6, 182, 212, 0.1); color: var(--color-cyan); font-weight: 800; font-size: 14px; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px;">Our Pride</span>
+            <h2 style="font-size: 48px; font-weight: 800; letter-spacing: -1px;">Alumni <span class="text-gradient-cyan">Spotlights</span></h2>
+            <p style="font-size: 18px; color: var(--text-muted); font-weight: 500; margin-top: 15px; max-width: 700px; margin: 15px auto 0;">Celebrating the outstanding achievements and career paths of our English Department graduates.</p>
+        </div>
+
+        <div class="alumni-grid-large">
+            
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>G Sakthi Lakshmi</h4>
+                <div class="alumni-batch-large">BC 2018-2020</div>
+                <p class="alumni-desc-large">COS PACKER, SANDYNALLAH S.O POST OFFICE, NILGIRIS DIVISION.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>K Prema Ananthi</h4>
+                <div class="alumni-batch-large">UG 2015-2018</div>
+                <p class="alumni-desc-large">MULTITASKING STAFF, CHENNAI.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>M Parthiban</h4>
+                <div class="alumni-batch-large">UG 2018-2021</div>
+                <p class="alumni-desc-large">GOVERNMENT OF INDIA</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>R Ajith Bakyanathan</h4>
+                <div class="alumni-batch-large">UG 2018-2021</div>
+                <p class="alumni-desc-large">CENTRAL RESERVED POLICE, JODHPUR FORCE, RAJASTHAN.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>G Ajayanath</h4>
+                <div class="alumni-batch-large">UG 2018-2021</div>
+                <p class="alumni-desc-large">MULTI TASKING STAFF</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>R R Balaji</h4>
+                <div class="alumni-batch-large">UG 2016-2019</div>
+                <p class="alumni-desc-large">ADVOCATE</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>S Saminathan</h4>
+                <div class="alumni-batch-large">BC 2018-2020</div>
+                <p class="alumni-desc-large">MULTI TASKING STAFF, KOTHAGIRI.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>J Joys Ezhilarasi</h4>
+                <div class="alumni-batch-large">PG 2015-2017</div>
+                <p class="alumni-desc-large">ASSISTANT PROFESSOR, AMBAI ARTS COLLEGE, AMBASAMUDRAM</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>K Gracia Jeba Jaffrin</h4>
+                <div class="alumni-batch-large">PG 2020-2022</div>
+                <p class="alumni-desc-large">ASSISTANT PROFESSOR, AMBAI ARTS COLLEGE, AMBASAMUDRAM.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>R Sasi Kumar</h4>
+                <div class="alumni-batch-large">PG 2015-2017</div>
+                <p class="alumni-desc-large">P.G. ASSISTANT, PERIYAR GOVERNMENT HR SEC SCHOOL, CHERANMAHADEVI.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>M Abiniya</h4>
+                <div class="alumni-batch-large">PG 2021-2023</div>
+                <p class="alumni-desc-large">ASSISTANT PROFESSOR, AMBAI ARTS COLLEGE, AMBASAMUDRAM.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>Rathna. P. U. Karthick</h4>
+                <div class="alumni-batch-large">UG/PG 2021-2023</div>
+                <p class="alumni-desc-large">ASSISTANT PROFESSOR, SRIRAM NALLAMANI YADAVA COLLEGE OF ARTS AND SCIENCE, KODIKURICHI, TENKASI.</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>E MUTHU KUMARI</h4>
+                <div class="alumni-batch-large">UG 2015 - 2018</div>
+                <p class="alumni-desc-large">CONSTABLE, CRPF, AVADI, CHENNAI</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>G JAYA GANESH</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">CONSTABLE, CRPF, AVADI, CHENNAI</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>R SUDHAKAR</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">CONSTABLE, CRPF, AVADI, CHENNAI</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>P RAMYA</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">CONSTABLE, ARMED RESERVE POLICE, PALAYAMKOTTAI</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>M KANNAN</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">CONSTABLE, ARMED RESERVE POLICE, PALAYAMKOTTAI</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>M MUTHU KUMAR</h4>
+                <div class="alumni-batch-large">UG 2015 - 2018</div>
+                <p class="alumni-desc-large">POLICE CONSTABLE, TAMIL NADU POLICE DEPARTMENT</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>P PRIYA</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">POLICE CONSTABLE, TAMIL NADU POLICE DEPARTMENT</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>S SHUNMUGA NATHAN</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">POLICE CONSTABLE, TAMIL NADU POLICE DEPARTMENT</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>M SIVA SURIYA</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">POLICE CONSTABLE, TAMIL NADU POLICE DEPARTMENT</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>C SURIYA</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">POLICE CONSTABLE, TAMIL NADU POLICE DEPARTMENT</p>
+            </div>
+
+            <div class="alumni-card-large hover-target scroll-anim">
+                <div class="avatar-large-container">
+                    <div class="avatar-fallback"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                </div>
+                <h4>M VALLINAYAGI</h4>
+                <div class="alumni-batch-large">UG 2018 - 2021</div>
+                <p class="alumni-desc-large">POLICE CONSTABLE, TAMIL NADU POLICE DEPARTMENT</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="dept-gallery" class="gallery-wrapper">
+        <h2 class="section-title scroll-anim" style="margin-bottom: 10px;">Department <span class="text-gradient-green">Gallery</span></h2>
+        <p style="font-size: 18px; color: var(--text-muted); font-weight: 500; margin-bottom: 40px;" class="scroll-anim">A vast collection of our seminars, cultural fests, and student activities.</p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 6.57.00 PM.jpeg" alt="Students Farewell">
+                <div class="gallery-overlay"><h4>Students Farewell</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.01.01 PM.jpeg" alt="Stage Event">
+                <div class="gallery-overlay"><h4>Lighting the Lamp</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.03.42 PM.jpeg" alt="Our Faculty">
+                <div class="gallery-overlay"><h4>Dept Faculty Team</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 6.59.55 PM.jpeg" alt="TVC Family">
+                <div class="gallery-overlay"><h4>TVC Family</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.01.50 PM.jpeg" alt="Staff Conference">
+                <div class="gallery-overlay"><h4>Staff Conference</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.02.24 PM.jpeg" alt="Conference Dignitaries">
+                <div class="gallery-overlay"><h4>National Conference</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.04.04 PM.jpeg" alt="Seminar Presentation">
+                <div class="gallery-overlay"><h4>Seminar Session</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.04.44 PM.jpeg" alt="Student Presentation">
+                <div class="gallery-overlay"><h4>Student Presentation</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.05.26 PM.jpeg" alt="Classroom Presentation">
+                <div class="gallery-overlay"><h4>Academic Event</h4></div>
+            </div>
+            <div class="gallery-item hover-target">
+                <img src="/static/WhatsApp Image 2026-04-03 at 7.05.53 PM.jpeg" alt="Student Interaction">
+                <div class="gallery-overlay"><h4>Student Interaction</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <img src="/static/logo.png" alt="Logo" style="height: 60px; margin-bottom: 25px;">
+                    <div class="footer-mission-box"><p>The mission in its most succinct form is enshrined in the motto’s for goal, it is explicitly stated in the College calendar. As for the other goals and objectives, each of them is a recognizable part of our College tradition, frequently talked about in our meetings and implicitly expressed in our policies, practices and activities.</p></div>
+                </div>
+                <div><h4>Academics</h4><ul class="footer-links"><li><a href="department-english.html">B.A English</a></li><li><a href="department-english.html">M.A English</a></li></ul></div>
+                <div><h4>College</h4><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="about-founder.html">Founder</a></li></ul></div>
+                <div><h4>Reach Us</h4><div class="footer-contact-box"><p>Admission Desk</p><a href="tel:+911234567890">04634 - 220327</a></div></div>
+            </div>
+            <div class="footer-bottom"><div>&copy; 2026 TVC English Dept (SF).</div><div>Location: Papanasam, TN</div></div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 500); });
+        gsap.registerPlugin(ScrollTrigger);
+        
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+            cursorOutline.style.left = `${e.clientX}px`; cursorOutline.style.top = `${e.clientY}px`;
+        });
+        document.querySelectorAll('.hover-target, a, button, .video-item').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        gsap.utils.toArray('.scroll-anim').forEach(el => {
+            gsap.from(el, { scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" }, y: 40, opacity: 0, duration: 0.8 });
+        });
+
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.parentElement.addEventListener('mousemove', (e) => {
+                const rect = btn.parentElement.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.4; 
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.4;
+                btn.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            btn.parentElement.addEventListener('mouseleave', () => { btn.style.transform = `translate(0px, 0px)`; });
+        });
+
+        // Mobile Menu Toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if(mobileMenu) {
+    // 1. Hamburger icon-a click panna open/close aaga
+    mobileMenu.addEventListener('click', (e) => { 
+        navLinks.classList.toggle('active'); 
+        e.stopPropagation(); // Intha click body-ku pogama thadukka
+    });
+
+    // 2. Veliya yengayachu thotta close aaga (Puthusa add pannathu)
+    document.addEventListener('click', (e) => {
+        // Menu open-la irukka nu check pannuthu, apram click pannathu menu-kulla illanu check pannuthu
+        if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+        }
+    });
+}
+    </script>
+</body>
+</html>

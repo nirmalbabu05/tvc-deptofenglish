@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance & Placement | Thiruvalluvar College</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === VIBRANT LIGHT THEME VARIABLES === */
+        :root { 
+            --bg-main: #ffffff; 
+            --bg-alt: #f8fafc;
+            --text-dark: #0f172a; 
+            --text-muted: #475569; 
+            
+            /* Multi-Color Palette */
+            --color-blue: #2563eb; 
+            --color-cyan: #06b6d4; 
+            --color-purple: #8b5cf6;
+            --color-pink: #ec4899;
+            --color-orange: #f97316;
+            --color-green: #10b981;
+            --color-rose: #f43f5e;
+
+            --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.08);
+            --shadow-glow: 0 10px 30px rgba(37, 99, 235, 0.2);
+            --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            --smooth: cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; cursor: none; }
+        html { scroll-behavior: smooth; } 
+        body { 
+            background: linear-gradient(-45deg, #ffffff, #eff6ff, #f0fdfa, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark); overflow-x: hidden; line-height: 1.6; 
+        } 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        a, button { cursor: none; } 
+        ul { list-style: none; }
+
+        /* === PRELOADER === */
+        #preloader { position: fixed; inset: 0; background: var(--bg-main); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
+        .loader-ring { width: 60px; height: 60px; border: 4px solid #e2e8f0; border-top-color: var(--color-blue); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* === CUSTOM MOUSE CURSOR === */
+        .cursor-dot { width: 8px; height: 8px; background: var(--color-blue); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999999 !important; transition: width 0.2s, height 0.2s; }
+        .cursor-outline { width: 40px; height: 40px; border: 2px solid rgba(37, 99, 235, 0.5); border-radius: 50%; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999998 !important; transition: width 0.2s, height 0.2s, border-color 0.2s; transition-duration: 150ms; transition-timing-function: ease-out; }
+        body.hovering .cursor-dot { width: 0; height: 0; }
+        body.hovering .cursor-outline { width: 60px; height: 60px; background: rgba(37, 99, 235, 0.1); border-color: var(--color-blue); backdrop-filter: blur(2px); }
+
+        /* === DYNAMIC MESH BACKGROUND === */
+        .mesh-bg { position: fixed; inset: 0; z-index: -3; overflow: hidden; pointer-events: none; }
+        .mesh-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; animation: floatMesh 20s infinite alternate ease-in-out; }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--color-blue); }
+        .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: var(--color-cyan); animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: var(--color-purple); animation-delay: -10s; }
+        @keyframes floatMesh { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(10vw, 15vh) scale(1.2); } 100% { transform: translate(-10vw, 5vh) scale(0.8); } }
+
+        /* === MULTI-COLOR TYPOGRAPHY & BUTTONS === */
+        .text-gradient-blue { background: linear-gradient(to right, var(--color-blue), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-pink { background: linear-gradient(to right, var(--color-pink), var(--color-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-green { background: linear-gradient(to right, var(--color-green), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-purple { background: linear-gradient(to right, var(--color-purple), var(--color-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-gradient-cyan { background: linear-gradient(to right, var(--color-cyan), var(--color-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .btn { padding: 14px 32px; border-radius: 12px; font-size: 16px; font-weight: 700; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; box-shadow: var(--shadow-soft); text-decoration: none; }
+        .btn-gradient { background: linear-gradient(135deg, var(--color-blue), var(--color-purple)); color: white; }
+        .btn-gradient:hover { transform: translateY(-5px); box-shadow: var(--shadow-glow); background: linear-gradient(135deg, var(--color-purple), var(--color-pink)); }
+        .magnetic-wrap { display: inline-block; }
+
+        /* === COLORFUL ENTERPRISE NAVBAR === */
+        .navbar { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 85px; 
+            background: rgba(255, 255, 255, 0.90); 
+            backdrop-filter: blur(20px); 
+            border-bottom: 3px solid transparent; 
+            border-image: linear-gradient(to right, var(--color-blue), var(--color-pink), var(--color-orange), var(--color-green)) 1;
+            z-index: 1000; display: flex; align-items: center; transition: all 0.4s; 
+            opacity: 1; visibility: visible; 
+        }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 10px 30px rgba(0,0,0,0.05); height: 75px; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+        
+        .logo-container { display: flex; align-items: center; height: 100%; }
+        .logo-img { height: 45px; display: block; object-fit: contain; }
+        
+        .nav-links { display: flex; gap: 30px; align-items: center; position: absolute; left: 50%; transform: translateX(-50%); height: 100%;}
+        .nav-links > li { height: 100%; display: flex; align-items: center; position: relative; }
+        .nav-links a { font-size: 15px; font-weight: 700; color: var(--text-muted); transition: 0.3s; position: relative; padding-bottom: 5px; text-decoration: none; }
+        .nav-links > li > a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 50%; transition: 0.3s var(--smooth); transform: translateX(-50%); border-radius: 5px; }
+        
+        /* MULTI-COLOR TABS HOVER EFFECTS */
+        .nav-links > li:nth-child(1) > a:hover { color: var(--color-blue); }
+        .nav-links > li:nth-child(1) > a::after { background: var(--color-blue); }
+        .nav-links > li:nth-child(2) > a:hover { color: var(--color-pink); }
+        .nav-links > li:nth-child(2) > a::after { background: var(--color-pink); }
+        .nav-links > li:nth-child(3) > a:hover { color: var(--color-orange); }
+        .nav-links > li:nth-child(3) > a::after { background: var(--color-orange); }
+        .nav-links > li:nth-child(4) > a:hover { color: var(--color-green); }
+        .nav-links > li:nth-child(4) > a::after { background: var(--color-green); }
+        .nav-links > li:nth-child(5) > a:hover, .nav-links > li:nth-child(5) > a.active { color: var(--color-cyan); }
+        .nav-links > li:nth-child(5) > a.active::after, .nav-links > li:nth-child(5) > a:hover::after { background: var(--color-cyan); width: 100%; }
+        .nav-links > li:nth-child(6) > a:hover { color: var(--color-purple); }
+        .nav-links > li:nth-child(6) > a::after { background: var(--color-purple); }
+        .nav-links > li:nth-child(7) > a:hover { color: var(--color-rose); }
+        .nav-links > li:nth-child(7) > a::after { background: var(--color-rose); }
+        .nav-links > li:nth-child(8) > a:hover { color: var(--color-blue); }
+        .nav-links > li:nth-child(8) > a::after { background: var(--color-blue); }
+        .nav-links > li > a:hover::after { width: 100%; }
+
+        /* DROPDOWN MENU */
+        .dropdown-content {
+            position: absolute; top: 85px; left: 0;
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px);
+            min-width: 240px; box-shadow: var(--shadow-soft);
+            border-radius: 0 0 16px 16px; overflow: hidden;
+            opacity: 0; visibility: hidden; transform: translateY(15px);
+            transition: all 0.3s var(--spring); padding: 10px 0;
+            border: 1px solid rgba(0, 0, 0, 0.05); border-top: none;
+        }
+        .nav-links li:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
+        .navbar.scrolled .dropdown-content { top: 75px; }
+        
+        .dropdown-content li a { display: block; padding: 12px 24px; color: var(--text-muted); font-size: 14px; font-weight: 600; transition: 0.3s; position: relative; }
+        .dropdown-content li a::after { display: none; } 
+        
+        .nav-links > li:nth-child(2) .dropdown-content li a:hover { background: #fdf2f8; color: var(--color-pink); padding-left: 30px; border-left: 3px solid var(--color-pink); }
+        .nav-links > li:nth-child(3) .dropdown-content li a:hover { background: #fff7ed; color: var(--color-orange); padding-left: 30px; border-left: 3px solid var(--color-orange); }
+        .nav-links > li:nth-child(4) .dropdown-content li a:hover { background: #f0fdfa; color: var(--color-green); padding-left: 30px; border-left: 3px solid var(--color-green); }
+        .nav-links > li:nth-child(5) .dropdown-content li a:hover { background: #ecfeff; color: var(--color-cyan); padding-left: 30px; border-left: 3px solid var(--color-cyan); }
+
+        /* === PREMIUM COLORFUL MARQUEE === */
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-wrapper { 
+            position: absolute; top: 85px; 
+            width: 100%; background: #0f172a; padding: 12px 0; 
+            display: flex; overflow: hidden; color: white; z-index: 999; 
+        }
+        .marquee-content { display: flex; width: max-content; animation: scrollMarquee 15s linear infinite; align-items: center; }
+        .marquee-wrapper:hover .marquee-content { animation-play-state: paused; }
+        
+        .marquee-item { 
+            flex-shrink: 0; display: flex; align-items: center; gap: 12px; padding: 0 40px; 
+            font-size: 14.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; 
+            border-right: 1px solid rgba(255,255,255,0.2); 
+            color: #ffffff; text-decoration: none; transition: color 0.3s ease;
+        }
+        .marquee-item svg.arrow-icon { transition: transform 0.3s var(--spring); }
+        
+        .marquee-item.c-blue:hover { color: var(--color-cyan); }
+        .marquee-item.c-blue:hover svg.arrow-icon { transform: translateX(5px); color: var(--color-cyan); }
+        .marquee-item.c-blue .ticker-badge { background: var(--color-blue); }
+
+        .marquee-item.c-pink:hover { color: var(--color-pink); }
+        .marquee-item.c-pink:hover svg.arrow-icon { transform: translateX(5px); color: var(--color-pink); }
+        .marquee-item.c-pink .ticker-badge { background: var(--color-pink); }
+
+        .marquee-item.c-orange:hover { color: var(--color-orange); }
+        .marquee-item.c-orange:hover svg.arrow-icon { transform: translateX(5px); color: var(--color-orange); }
+        .marquee-item.c-orange .ticker-badge { background: var(--color-orange); }
+
+        .marquee-item.c-green:hover { color: var(--color-green); }
+        .marquee-item.c-green:hover svg.arrow-icon { transform: translateX(5px); color: var(--color-green); }
+        .marquee-item.c-green .ticker-badge { background: var(--color-green); }
+
+        .ticker-badge { color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+
+        /* === HERO SECTION === */
+        .page-hero { padding: 200px 24px 80px; text-align: center; position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+        .hero-tag { display: inline-block; padding: 8px 24px; border-radius: 30px; background: rgba(37, 99, 235, 0.1); color: var(--color-blue); font-weight: 800; font-size: 14px; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 2px;}
+        .page-hero h1 { font-size: 64px; font-weight: 800; line-height: 1.1; color: var(--text-dark); margin-bottom: 20px; letter-spacing: -2px; }
+        .page-hero p { font-size: 20px; color: var(--text-muted); font-weight: 500; max-width: 800px; margin: 0 auto; line-height: 1.6;}
+
+        /* === CONTENT SECTION === */
+        .content-section { max-width: 1400px; margin: 0 auto 100px; padding: 0 24px; position: relative; z-index: 2; }
+        
+        .intro-container { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; 
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); 
+            border-radius: 40px; padding: 60px; box-shadow: var(--shadow-soft); 
+            border: 1px solid rgba(255, 255, 255, 0.9); margin-bottom: 80px;
+        }
+
+        .coord-badge {
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-blue));
+            padding: 30px 40px; border-radius: 30px; color: white;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+            position: relative; overflow: hidden;
+            display: inline-block;
+        }
+        .coord-badge::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%); opacity: 0.5;
+        }
+        .coord-badge span { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; opacity: 0.9; display: block; margin-bottom: 5px; position: relative; z-index: 2;}
+        .coord-badge h3 { font-size: 32px; font-weight: 800; margin: 0 0 5px 0; position: relative; z-index: 2;}
+        .coord-badge p { font-size: 16px; margin: 0; font-weight: 600; opacity: 0.9; position: relative; z-index: 2;}
+
+        .vision-box {
+            background: var(--bg-alt); padding: 30px; border-radius: 20px; 
+            border-left: 6px solid var(--color-orange); box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .vision-box h4 { font-size: 22px; color: var(--color-orange); margin-bottom: 10px; font-weight: 800;}
+        .vision-box p { font-size: 18px; color: var(--text-dark); line-height: 1.7; font-weight: 500; margin: 0;}
+
+        .section-title { font-size: 42px; font-weight: 800; margin-bottom: 50px; text-align: center; letter-spacing: -1px; color: var(--text-dark);}
+
+        /* === MISSION GOALS GRID === */
+        .obj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .obj-card {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px);
+            padding: 40px; border-radius: 25px; box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255, 255, 255, 0.9); transition: all 0.4s var(--spring);
+            border-left: 5px solid var(--color-blue); position: relative; overflow: hidden;
+        }
+        .obj-card:hover { transform: translateY(-10px); background: white; box-shadow: var(--shadow-glow); border-left-color: var(--color-pink);}
+        .obj-card p { font-size: 17px; color: var(--text-dark); font-weight: 600; line-height: 1.7; margin: 0; position: relative; z-index: 2;}
+        .obj-card .icon-watermark { position: absolute; right: -20px; bottom: -20px; opacity: 0.05; color: var(--color-blue); transition: 0.4s; font-size: 100px; line-height: 1;}
+        .obj-card:hover .icon-watermark { transform: scale(1.2) rotate(-10deg); color: var(--color-pink); opacity: 0.1;}
+
+        @media (max-width: 992px) {
+            .intro-container { grid-template-columns: 1fr; padding: 40px 20px; }
+        }
+
+        /* === 6. COLORFUL ENTERPRISE FOOTER === */
+        .footer { 
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); 
+            padding: 100px 0 40px; 
+            position: relative; 
+            overflow: hidden; 
+            margin-top: 60px; 
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .footer::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--color-blue), var(--color-pink), var(--color-orange), var(--color-green), var(--color-cyan));
+        }
+        
+        .footer-glow { position: absolute; bottom: 0; right: 0; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%); pointer-events: none; }
+        .footer-glow-2 { position: absolute; top: 0; left: 0; width: 500px; height: 500px; background: radial-gradient(circle, rgba(236, 72, 153, 0.06) 0%, transparent 70%); pointer-events: none; }
+
+        .footer-container { max-width: 1320px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10; }
+        .footer-grid { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 60px; }
+        
+        .footer-mission-box {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255,255,255,0.8);
+            padding: 25px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-bottom: 25px; border-left: 4px solid var(--color-pink);
+        }
+        .footer-mission-box p { color: var(--text-muted); font-size: 15px; line-height: 1.7; font-weight: 500; margin: 0; }
+
+        .social-links { display: flex; gap: 15px; }
+        .social-links a { 
+            width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            color: white; transition: all 0.4s var(--spring); font-weight: 700; text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .sl-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .sl-fb { background: #1877f2; }
+        .sl-yt { background: #ff0000; }
+        .social-links a:hover { transform: translateY(-8px) scale(1.1); box-shadow: 0 15px 25px rgba(0,0,0,0.15); }
+        
+        .footer h4 { font-size: 20px; font-weight: 800; margin-bottom: 25px; letter-spacing: 0.5px; position: relative; display: inline-block;}
+        .footer h4::after { content: ''; position: absolute; left: 0; bottom: -8px; height: 3px; width: 20px; border-radius: 3px; }
+        
+        .footer-grid > div:nth-child(2) h4 { color: var(--color-blue); }
+        .footer-grid > div:nth-child(2) h4::after { background: var(--color-blue); }
+        
+        .footer-grid > div:nth-child(3) h4 { color: var(--color-orange); }
+        .footer-grid > div:nth-child(3) h4::after { background: var(--color-orange); }
+        
+        .footer-grid > div:nth-child(4) h4 { color: var(--color-green); }
+        .footer-grid > div:nth-child(4) h4::after { background: var(--color-green); }
+
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 15px; } 
+        .footer-links a { color: var(--text-muted); transition: 0.3s; font-weight: 600; display: inline-block; text-decoration: none; position: relative;}
+        .footer-links a:hover { color: var(--color-cyan); transform: translateX(8px); }
+        
+        .footer-contact-box {
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-blue));
+            padding: 30px; border-radius: 24px; color: white;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+            position: relative; overflow: hidden;
+        }
+        .footer-contact-box::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%); opacity: 0.5;
+        }
+        .footer-contact-box p { color: rgba(255,255,255,0.9); font-weight: 600; margin-bottom: 5px; font-size: 14px; position: relative; z-index: 2;}
+        .footer-contact-box a { font-size: 26px; font-weight: 800; color: white; text-decoration: none; position: relative; z-index: 2; display: inline-block;}
+        
+        .footer-bottom { border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 15px; color: var(--text-muted); font-weight: 600; }
+
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid > div:nth-child(1) { grid-column: span 2; }
+        }
+        @media (max-width: 576px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-grid > div:nth-child(1) { grid-column: span 1; }
+            .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+        }
+
+        /* === FINAL MOBILE NAVBAR FIX (BUTTER SMOOTH) === */
+        .menu-toggle { display: none; color: var(--text-dark); cursor: pointer; z-index: 1001; }
+        
+        @media (max-width: 992px) {
+            .menu-toggle { display: block; margin-right: 15px; }
+            
+            /* 1. Optimize Main Navbar (No Blur, Solid White to stop lag) */
+            .navbar {
+                background: #ffffff !important; 
+                backdrop-filter: none !important; 
+                -webkit-backdrop-filter: none !important;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+                padding: 10px 0 !important;
+                will-change: transform, opacity; 
+            }
+            
+            /* 2. Smooth Sliding Menu */
+            .nav-links {
+                position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+                background: #ffffff !important; 
+                backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+                flex-direction: column; align-items: flex-start; justify-content: flex-start;
+                padding: 100px 30px 40px; 
+                transform: translateX(100%); 
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1); 
+                left: auto; box-shadow: -5px 0 30px rgba(0,0,0,0.1); 
+                overflow-y: auto; z-index: 1000;
+            }
+            
+            .nav-links.active { transform: translateX(0); }
+            
+            .nav-links > li { height: auto; width: 100%; margin-bottom: 15px; display: block; }
+            .nav-links a { font-size: 16px; padding-bottom: 2px; display: block; }
+            
+            /* 3. Fixed Sub-headings (Always open neatly, NO JUMPING) */
+            .navbar.scrolled .dropdown-content {
+                top: 0 !important;
+            }
+            .dropdown-content {
+                position: relative !important; 
+                top: 0 !important; 
+                left: 0; box-shadow: none; border: none; 
+                padding-left: 15px; padding-top: 5px; opacity: 1; visibility: visible; 
+                display: block !important; 
+                transform: none; background: transparent;
+                border-left: 2px solid #e2e8f0; margin-top: 8px; border-radius: 0;
+            }
+            
+            .dropdown-content li { margin-bottom: 0; }
+            .dropdown-content li a { 
+                padding: 8px 15px; font-size: 14px; font-weight: 500; 
+                color: var(--text-muted); 
+            }
+            
+            .nav-right-items { display: flex; align-items: center; gap: 10px; z-index: 1001; position: relative;}
+        }
+        
+        @media (max-width: 576px) {
+            .magnetic-wrap .btn { padding: 10px 15px; font-size: 14px; }
+            .logo-img { height: 35px; }
+        }
+
+        /* === DISABLE CUSTOM CURSOR ON MOBILE & TOUCH DEVICES === */
+        @media (hover: none) and (pointer: coarse), (max-width: 992px) {
+            * { cursor: auto !important; }
+            a, button, .hover-target, .gallery-item { cursor: pointer !important; }
+            .cursor-dot, .cursor-outline { display: none !important; }
+        }
+
+        /* === MOBILE 200% PERFECT FIT FIX (NO SHAKING/SCROLLING) === */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden !important;
+        }
+
+        @media (max-width: 768px) {
+            /* 1. Resize Huge Texts */
+            .hero-title { font-size: 38px !important; margin-bottom: 15px !important;}
+            .dept-hero h1 { font-size: 38px !important; margin-bottom: 15px !important;}
+            .section-title, .about-content h2, .parallax-content h2 { font-size: 30px !important; }
+            .hero-desc, .dept-hero p { font-size: 16px !important; }
+            
+            /* 2. Adjust Box Paddings to fit small screens */
+            .hero-content { padding: 40px 20px !important; width: 100%; }
+            .about-container { padding: 40px 20px !important; }
+            .feature-card { padding: 30px 25px !important; }
+            .content-section, .about-section, .features-section, .campus-section, .jobs-section, .gallery-wrapper {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+                overflow-x: hidden;
+            }
+            
+            /* 3. Prevent Grids & Images from pushing the screen */
+            .swiper { width: 100% !important; border-radius: 0; }
+            .obj-grid, .features-grid, .jobs-grid, .faculty-grid { gap: 20px !important; }
+            
+            /* 4. Fix the bouncing Badge */
+            .about-badge { 
+                left: 50% !important; 
+                transform: translateX(-50%) !important; 
+                bottom: -25px !important; 
+                width: 90%; 
+                justify-content: center;
+                animation: none !important; /* Stops the shaking */
+            }
+            
+            /* 5. Fix Marquee overflowing */
+            .marquee-item { padding: 0 20px !important; font-size: 12px !important; }
+        }
+
+        /* === MOBILE PERFORMANCE & SMOOTHNESS FIX === */
+        @media (max-width: 768px) {
+            /* 1. Stop heavy background animations */
+            body {
+                animation: none !important; /* மொபைலில் பேக்ரவுண்ட் அனிமேஷன் ஆஃப் */
+            }
+            .mesh-blob {
+                display: none !important; /* மொபைலில் மிதக்கும் கலர்கள் ஆஃப் (GPU சேமிக்க) */
+            }
+            
+            /* 2. Fix Navbar Lag (Remove expensive blur effect) */
+            .navbar, .nav-links, .dropdown-content {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(255, 255, 255, 1) !important; /* Solid White Color */
+            }
+
+            /* 3. Hardware acceleration for smooth scrolling */
+            .scroll-anim, .gallery-item img, .feature-card {
+                will-change: transform, opacity; 
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <div id="preloader"><div class="loader-ring"></div></div>
+
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <div class="mesh-bg">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+        <div class="mesh-blob blob-3"></div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="logo-container magnetic-wrap hover-target">
+                <img src="/static/logo.png" alt="College Logo" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                    <a href="#">College ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="about.html">College Profile</a></li>
+                        <li><a href="about-founder.html">About Founder</a></li>
+                        <li><a href="about-secretary.html">About Secretary</a></li>
+                        <li><a href="about-principal.html">About Principal</a></li>
+                        <li><a href="about-administration.html">Administration</a></li>
+                        <li><a href="about-vision.html">Vision & Mission</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Departments ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="department-english.html">Unaided - English</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Academics ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="academics-strength.html">Students Strength</a></li>
+                        <li><a href="academics-rank-holders.html">Rank Holders</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="active" style="color: var(--color-cyan);">Activities ▾</a>
+                    <ul class="dropdown-content">
+                        <li><a href="activities-ecoclub.html">Eco Club</a></li>
+                        <li><a href="activities-antiragging.html">Anti Ragging Cell</a></li>
+                        <li><a href="activities-womencell.html">Women Cell</a></li>
+                        <li><a href="activities-placement.html" class="hover-target" style="color: var(--color-blue);">Career Placement</a></li>
+                        <li><a href="activities-alumni.html">Alumni</a></li>
+                    </ul>
+                </li>
+                <li><a href="nirf.html">NIRF</a></li>
+                <li><a href="iqac.html">IQAC</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="magnetic-wrap"><a href="admission.html" class="btn btn-gradient hover-target magnetic-btn" style="text-decoration: none;">Apply Now ➔</a></div>
+        </div>
+    </nav>
+
+    <div class="marquee-wrapper">
+        <div class="marquee-content">
+            <a href="admission.html" class="marquee-item c-blue hover-target">
+                <span class="ticker-badge">LIVE</span> Admission Open. Register for B.A & M.A English 
+            </a>
+            <a href="admission.html" class="marquee-item c-pink hover-target">
+                <span class="ticker-badge">NEW</span> Admission Open. Register for B.A & M.A English 
+            </a>
+            <a href="admission.html" class="marquee-item c-orange hover-target">
+                <span class="ticker-badge">APPLY</span> Admission Open. Register for B.A & M.A English 
+            </a>
+            <a href="admission.html" class="marquee-item c-green hover-target">
+                <span class="ticker-badge">LIVE</span> Admission Open. Register for B.A & M.A English 
+            </a>
+        </div>
+    </div>
+
+    <header class="page-hero scroll-anim">
+        <span class="hero-tag">Shaping Your Future</span>
+        <h1>Career Guidance <br><span class="text-gradient-cyan">& Placement</span></h1>
+        <p>Bridging the gap between academic learning and global professional opportunities.</p>
+    </header>
+
+    <section class="content-section">
+        
+        <div class="intro-container hover-target scroll-anim">
+            <div class="coord-badge">
+                <span>Coordinator</span>
+                <h3>Dr. K. Annathurai</h3>
+                <p>Asst. Professor & Head of Mathematics</p>
+            </div>
+            
+            <div class="vision-box">
+                <h4>Our Vision</h4>
+                <p>All the students to obtain skill - oriented and vocational training to meet out Global level competency in placement offers.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title scroll-anim">Mission & <span class="text-gradient-purple">Goals</span></h2>
+        
+        <div class="obj-grid">
+            <div class="obj-card scroll-anim hover-target">
+                <div class="icon-watermark">💻</div>
+                <p>Design Communication LSRW skills and basic computer knowledge for continuous growth of students fraternity and faculty members.</p>
+            </div>
+            
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-pink);">
+                <div class="icon-watermark">🗣️</div>
+                <p>Offer training to enhance Aptitude, Group Discussion, Technical Terms of the respective subject and HR Interview skills.</p>
+            </div>
+
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-orange);">
+                <div class="icon-watermark">📝</div>
+                <p>Providing a platform to clear UPSC, TNPSC, IBPS, IRDA and Public Sector Competitive Examinations.</p>
+            </div>
+
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-green);">
+                <div class="icon-watermark">🤝</div>
+                <p>To motivate and counsel the students to acquire higher placement offers.</p>
+            </div>
+
+            <div class="obj-card scroll-anim hover-target" style="border-left-color: var(--color-purple);">
+                <div class="icon-watermark">🌍</div>
+                <p>To offer Global level job opportunities to all eligible and talented candidates.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer scroll-anim">
+        <div class="footer-glow"></div>
+        <div class="footer-glow-2"></div>
+        <div class="footer-container">
+            <div class="footer-grid">
+                
+                <div>
+                    <img src="/static/logo.png" alt="College Logo" style="height: 60px; margin-bottom: 25px; display: block; object-fit: contain;">
+                    
+                    <div class="footer-mission-box hover-target">
+                        <p>The mission in its most succinct form is enshrined in the motto’s for goal, it is explicitly stated in the College calendar. As for the other goals and objectives, each of them is a recognizable part of our College tradition, frequently talked about in our meetings and implicitly expressed in our policies, practices and activities.</p>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="sl-ig hover-target">IG</a>
+                        <a href="#" class="sl-fb hover-target">FB</a>
+                        <a href="#" class="sl-yt hover-target">YT</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4>Academics</h4>
+                    <ul class="footer-links">
+                        <li><a href="department-english.html" class="hover-target">B.A English</a></li>
+                        <li><a href="department-english.html" class="hover-target">M.A English</a></li>
+                        <li><a href="academics-rank-holders.html" class="hover-target">Rank Holders</a></li>
+                        <li><a href="department-english.html" class="hover-target">Curriculum</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>College</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="hover-target">About Us</a></li>
+                        <li><a href="about-administration.html" class="hover-target">Administration</a></li>
+                        <li><a href="iqac.html" class="hover-target">IQAC</a></li>
+                        <li><a href="nirf.html" class="hover-target">NIRF</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>Reach Us</h4>
+                    <div class="footer-contact-box hover-target">
+                        <p>Admission Desk</p>
+                        <a href="tel:+911234567890" style="font-size: 22px;">04634 - 220327</a>
+                        <p style="margin-top: 15px; font-size: 13px; opacity: 0.8;">Available Mon-Sat, 9AM - 5PM</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <div>&copy; 2026 TVC English Dept (SF). Crafted with Passion.</div>
+                <div>Location: <span style="color: var(--color-blue); font-weight: 800;">Papanasam, Tamil Nadu</span></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 800);
+            }, 500);
+        });
+
+        // Optimized Navbar Scroll Effect for Mobile
+        const navbar = document.getElementById('navbar');
+        let isScrolled = false;
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50 && !isScrolled) {
+                navbar.classList.add('scrolled');
+                isScrolled = true;
+            } else if (window.scrollY <= 50 && isScrolled) {
+                navbar.classList.remove('scrolled');
+                isScrolled = false;
+            }
+        }, { passive: true });
+
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+            setTimeout(() => { cursorOutline.style.left = `${e.clientX}px`; cursorOutline.style.top = `${e.clientY}px`; }, 50);
+        });
+
+        document.querySelectorAll('.hover-target, a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // Magnetic Buttons
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.parentElement.addEventListener('mousemove', (e) => {
+                const rect = btn.parentElement.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.4; 
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.4;
+                btn.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            btn.parentElement.addEventListener('mouseleave', () => { btn.style.transform = `translate(0px, 0px)`; });
+        });
+
+        // Animations
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.scroll-anim').forEach(el => {
+            gsap.from(el, { scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" }, y: 40, opacity: 0, duration: 0.8 });
+        });
+
+        // Mobile Menu Toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if(mobileMenu) {
+    // 1. Hamburger icon-a click panna open/close aaga
+    mobileMenu.addEventListener('click', (e) => { 
+        navLinks.classList.toggle('active'); 
+        e.stopPropagation(); // Intha click body-ku pogama thadukka
+    });
+
+    // 2. Veliya yengayachu thotta close aaga (Puthusa add pannathu)
+    document.addEventListener('click', (e) => {
+        // Menu open-la irukka nu check pannuthu, apram click pannathu menu-kulla illanu check pannuthu
+        if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+            navLinks.classList.remove('active');
+        }
+    });
+}
+    </script>
+</body>
+</html>
